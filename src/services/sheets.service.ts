@@ -1,10 +1,16 @@
 import { google } from 'googleapis'
 import { TransactionData } from './llm.service'
-import { get } from 'http'
+
+const credentials = JSON.parse(
+  Buffer.from(
+    process.env.GOOGLE_CREDENTIALS_JSON_BASE64 || '',
+    'base64'
+  ).toString('utf8')
+)
 
 export const getBsDollarRate = async (): Promise<number> => {
   const auth = new google.auth.GoogleAuth({
-    keyFile: 'credentials.json',
+    credentials,
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   })
 
@@ -26,7 +32,7 @@ export const getBsDollarRate = async (): Promise<number> => {
 
 export const insertTransactionToSheet = async (data: TransactionData) => {
   const auth = new google.auth.GoogleAuth({
-    keyFile: 'credentials.json',
+    credentials,
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   })
 
@@ -82,7 +88,7 @@ export const insertTransactionToSheet = async (data: TransactionData) => {
 
 export const insertTestRow = async () => {
   const auth = new google.auth.GoogleAuth({
-    keyFile: 'credentials.json',
+    credentials,
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   })
 
