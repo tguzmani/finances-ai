@@ -111,6 +111,7 @@ export const insertTestRow = async () => {
 
 const sheetsService = {
   insertTransactionToSheet,
+  insertTestRow,
   getBsDollarRate,
 }
 
