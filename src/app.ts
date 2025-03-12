@@ -3,7 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import path from 'path'
 import transactionRoutes from './routes/transaction.routes'
-import sheetsTestRoutes from './routes/sheets.routes'
+import expenseRoutes from './routes/expense.routes'
 
 dotenv.config()
 
@@ -22,7 +22,7 @@ app.get('*', (req, res) => {
 })
 
 // Routes
-app.use('/api', transactionRoutes)
-app.use('/api', sheetsTestRoutes)
+app.use('/api/transactions', transactionRoutes)
+app.use('/api/expenses', expenseRoutes)
 
 export default app

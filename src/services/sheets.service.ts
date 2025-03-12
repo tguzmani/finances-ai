@@ -103,38 +103,8 @@ export const insertTransactionToSheet = async (data: TransactionData) => {
   })
 }
 
-export const insertTestRow = async () => {
-  const auth = new google.auth.GoogleAuth({
-    credentials,
-    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-  })
-
-  const sheets = google.sheets({ version: 'v4', auth })
-
-  const testRow = [
-    [
-      new Date().toISOString().split('T')[0],
-      'Test Entry',
-      'Test Debit',
-      'Test Credit',
-      '$123',
-      '$123',
-      'Test Category',
-      'Test Subcategory',
-    ],
-  ]
-
-  await sheets.spreadsheets.values.append({
-    spreadsheetId: process.env.GOOGLE_SHEETS_ID,
-    range: 'Test!A:H',
-    valueInputOption: 'USER_ENTERED',
-    requestBody: { values: testRow },
-  })
-}
-
 const sheetsService = {
   insertTransactionToSheet,
-  insertTestRow,
   getBsDollarRate,
 }
 

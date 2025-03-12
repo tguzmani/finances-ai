@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node -r dotenv/config src/server.ts",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "ts-node -r dotenv/config src/server.ts",
+    "dev:frontend": "cd frontend && npm run dev",
     "build": "npm run build:backend && npm run build:frontend",
     "build:backend": "tsc",
     "build:frontend": "cd frontend && npm install && npm run build",
@@ -16,6 +18,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@langchain/core": "^0.3.42",
     "@langchain/openai": "^0.4.4",
     "axios": "^1.8.2",
     "cors": "^2.8.5",
@@ -31,6 +34,7 @@
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.10",
     "@types/react-dom": "^19.0.4",
+    "concurrently": "^9.1.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.2"
   }
