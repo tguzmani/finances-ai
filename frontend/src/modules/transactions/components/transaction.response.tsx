@@ -152,7 +152,6 @@ export const TransactionResponse = ({
           variant='contained'
           disabled={isPendingSave}
           loading={isPendingSave}
-          loadingPosition='start'
           onClick={handleSave}
         >
           Save
