@@ -1,12 +1,29 @@
 import { google } from 'googleapis'
 import { TransactionData } from './llm.service'
+import dotenv from 'dotenv'
 
-const credentials = JSON.parse(
-  Buffer.from(
-    process.env.GOOGLE_CREDENTIALS_JSON_BASE64 || '',
-    'base64'
-  ).toString('utf8')
-)
+dotenv.config()
+
+const credentialsBase64 = process.env.GOOGLE_CREDENTIALS_JSON_BASE64
+
+if (!credentialsBase64) {
+  throw new Error(
+    '❌ Missing GOOGLE_CREDENTIALS_JSON_BASE64 in environment variables.'
+  )
+}
+
+let credentials
+
+try {
+  const decodedCredentials = Buffer.from(credentialsBase64, 'base64').toString(
+    'utf-8'
+  )
+  credentials = JSON.parse(decodedCredentials)
+} catch (error) {
+  throw new Error(
+    '❌ Failed to parse GOOGLE_CREDENTIALS_JSON_BASE64. Check your .env file.'
+  )
+}
 
 export const getBsDollarRate = async (): Promise<number> => {
   const auth = new google.auth.GoogleAuth({
