@@ -21,13 +21,13 @@ export const TransactionView = () => {
         height='100vh'
         p={{ xs: 2, sm: 4 }}
       >
-        <Box sx={{ p: 2, bgcolor: 'grey.900' }}>
+        <Box sx={{ borderRadius: 2, p: 2, bgcolor: 'grey.900' }}>
           <Typography variant='h5' align='center'>
             Finances AI
           </Typography>
         </Box>
 
-        <Box sx={{ p: 2, bgcolor: 'grey.900', flexGrow: 1 }}>
+        <Box sx={{ borderRadius: 2, p: 2, bgcolor: 'grey.900', flexGrow: 1 }}>
           <TransactionResponse
             data={data?.data}
             isSuccess={isSuccess}
@@ -35,7 +35,7 @@ export const TransactionView = () => {
           />
         </Box>
 
-        <Box sx={{ p: 2, bgcolor: 'grey.900' }}>
+        <Box sx={{ borderRadius: 2, p: 2, bgcolor: 'grey.900' }}>
           <PromptForm
             prompt={prompt}
             setPrompt={setPrompt}
