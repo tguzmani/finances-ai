@@ -1,12 +1,13 @@
 // transaction.view.tsx
 import { useState } from 'react'
 import { Stack, Typography, Container, Box } from '@mui/material'
-import { useAddTransaction } from '../transaction.service'
+import { useCreateTransactionData } from '../transaction.service'
 import { PromptForm } from './prompt.form'
 import { TransactionResponse } from './transaction.response'
 
 export const TransactionView = () => {
-  const { mutate, data, isPending, isSuccess, error } = useAddTransaction()
+  const { mutate, data, isPending, isSuccess, error } =
+    useCreateTransactionData()
   const [prompt, setPrompt] = useState('')
 
   const handleSubmit = () => mutate(prompt)
@@ -36,7 +37,6 @@ export const TransactionView = () => {
 
         <Box sx={{ p: 2, bgcolor: 'grey.900' }}>
           <PromptForm
-            isSuccess={isSuccess}
             prompt={prompt}
             setPrompt={setPrompt}
             handleSubmit={handleSubmit}

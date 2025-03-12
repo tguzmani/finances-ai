@@ -8,9 +8,11 @@ import {
   Stack,
   Typography,
   Box,
+  Button,
 } from '@mui/material'
 
 import dayjs from 'dayjs'
+import { useSaveTransactionData } from '../transaction.service'
 
 interface AccountEntry {
   account: string
@@ -38,8 +40,12 @@ export const TransactionResponse = ({
   isSuccess,
   error,
 }: TransactionResponseProps) => {
+  const { mutate: saveTransactionData, isPending: isPendingSave } =
+    useSaveTransactionData()
+
   if (error)
     return <Alert severity='error'>Error: {(error as Error).message}</Alert>
+
   if (!isSuccess || !data) return null
 
   const sheetRows: Array<string | number>[] = []
@@ -87,45 +93,71 @@ export const TransactionResponse = ({
   const date = sheetRows[0][0]
   const description = sheetRows[0][1]
 
-  return (
-    <Stack spacing={0}>
-      <Stack spacing={0}>
-        <Typography variant='body1' align='center'>
-          {dayjs(date).format('DD MMM, YYYY')}
-        </Typography>
+  const handleSave = () => {
+    saveTransactionData(data)
+  }
 
-        <Typography variant='body1' align='center'>
-          {description}
-        </Typography>
+  return (
+    <Stack spacing={2} justifyContent='space-between' height='100%'>
+      <Stack spacing={2}>
+        <Stack spacing={0}>
+          <Typography variant='body1' align='center'>
+            {dayjs(date).format('DD MMM, YYYY')}
+          </Typography>
+
+          <Typography variant='body1' align='center'>
+            {description}
+          </Typography>
+        </Stack>
+
+        <Box
+          sx={{
+            width: '100%',
+            overflow: 'auto',
+            border: '1px solid',
+            borderColor: 'grey.700',
+            borderRadius: 1,
+          }}
+        >
+          <Table size='small'>
+            <TableHead>
+              <TableRow>
+                <TableCell>Debe</TableCell>
+                <TableCell>Haber</TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell>Categoría</TableCell>
+                <TableCell>Subcategoría</TableCell>
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+              {sheetRows.map((row, i) => (
+                <TableRow key={i}>
+                  <TableCell>{row[2]}</TableCell>
+                  <TableCell>{row[3]}</TableCell>
+                  <TableCell>{row[4]}</TableCell>
+                  <TableCell>{row[5]}</TableCell>
+                  <TableCell>{row[6]}</TableCell>
+                  <TableCell>{row[7]}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Box>
       </Stack>
 
-      <Box sx={{ width: '100%', overflow: 'auto' }}>
-        <Table sx={{ mt: 3 }} size='small'>
-          <TableHead>
-            <TableRow>
-              <TableCell>Debe</TableCell>
-              <TableCell>Haber</TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell>Categoría</TableCell>
-              <TableCell>Subcategoría</TableCell>
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {sheetRows.map((row, i) => (
-              <TableRow key={i}>
-                <TableCell>{row[2]}</TableCell>
-                <TableCell>{row[3]}</TableCell>
-                <TableCell>{row[4]}</TableCell>
-                <TableCell>{row[5]}</TableCell>
-                <TableCell>{row[6]}</TableCell>
-                <TableCell>{row[7]}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Box>
+      {data && (
+        <Button
+          variant='contained'
+          disabled={isPendingSave}
+          loading={isPendingSave}
+          loadingPosition='start'
+          onClick={handleSave}
+        >
+          Save
+        </Button>
+      )}
     </Stack>
   )
 }

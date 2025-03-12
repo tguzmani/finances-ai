@@ -67,7 +67,7 @@ export const parseTransactionPrompt = async (
     - credit_accounts:Source(payments or origin).
     - total_amount:sum debit=credit.
     - Default currency:USD;if "Bs", convert:(Bs/${bsDollarRate}=USD).
-    - Categories ONLY for "Gastos";if "mixtos", category:"Otros".
+    - Categories ONLY for "Gastos";if "mixtos", category:"Otros", subcategory:"Otros".
     - Use ONLY provided Accounts/Categories.
     - Use full account names for "Gastos", example: "Gastos mercado".
     - Use full account names for "Ingresos", example: "Ingresos OneMeta".

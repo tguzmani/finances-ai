@@ -6,7 +6,6 @@ interface PromptFormProps {
   setPrompt: (prompt: string) => void
   handleSubmit: () => void
   isPending: boolean
-  isSuccess: boolean
 }
 
 export const PromptForm = ({
@@ -14,9 +13,7 @@ export const PromptForm = ({
   setPrompt,
   handleSubmit,
   isPending,
-  isSuccess,
-}: // data,
-PromptFormProps) => {
+}: PromptFormProps) => {
   const handleClearPrompt = (e: FormEvent<HTMLElement>) => {
     e.preventDefault()
     setPrompt('')
@@ -41,12 +38,22 @@ PromptFormProps) => {
 
       <Button
         variant='contained'
-        type={isSuccess && prompt !== '' ? 'button' : 'submit'}
+        type={'submit'}
         disabled={isPending}
         loading={isPending}
-        onClick={isSuccess && prompt !== '' ? handleClearPrompt : handleSubmit}
+        onClick={handleSubmit}
       >
-        {isSuccess && prompt !== '' ? 'Clear' : 'Submit'}
+        {'Submit'}
+      </Button>
+
+      {/* add a clear button */}
+      <Button
+        variant='text'
+        type='button'
+        disabled={isPending}
+        onClick={handleClearPrompt}
+      >
+        Clear
       </Button>
     </Stack>
   )
