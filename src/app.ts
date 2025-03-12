@@ -14,6 +14,11 @@ app.use(cors())
 
 // Serve frontend static files
 
+// Routes
+app.use('/api/transactions', transactionRoutes)
+app.use('/api/expenses', expenseRoutes)
+
+// Serve frontend static files
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/dist'))
 
@@ -21,9 +26,5 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'))
   })
 }
-
-// Routes
-app.use('/api/transactions', transactionRoutes)
-app.use('/api/expenses', expenseRoutes)
 
 export default app
