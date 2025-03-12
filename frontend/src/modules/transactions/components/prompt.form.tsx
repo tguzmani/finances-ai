@@ -33,7 +33,7 @@ PromptFormProps) => {
         label='Transaction Prompt'
         value={prompt}
         multiline
-        rows={3}
+        rows={4}
         onChange={e => setPrompt(e.target.value)}
         fullWidth
         required

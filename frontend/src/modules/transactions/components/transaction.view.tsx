@@ -1,6 +1,6 @@
 // transaction.view.tsx
 import { useState } from 'react'
-import { Stack, Typography, Paper, Container } from '@mui/material'
+import { Stack, Typography, Container, Box } from '@mui/material'
 import { useAddTransaction } from '../transaction.service'
 import { PromptForm } from './prompt.form'
 import { TransactionResponse } from './transaction.response'
@@ -12,21 +12,29 @@ export const TransactionView = () => {
   const handleSubmit = () => mutate(prompt)
 
   return (
-    <Container>
-      <Stack spacing={4} sx={{ maxWidth: 700, mx: 'auto', mt: 4 }}>
-        <Typography variant='h4' align='center'>
-          Finances AI
-        </Typography>
+    <Container sx={{ p: { xs: 0, sm: 'initial' } }}>
+      <Stack
+        spacing={2}
+        sx={{ maxWidth: 700 }}
+        justifyContent='space-between'
+        height='100vh'
+        p={{ xs: 2, sm: 4 }}
+      >
+        <Box sx={{ p: 2, bgcolor: 'grey.900' }}>
+          <Typography variant='h5' align='center'>
+            Finances AI
+          </Typography>
+        </Box>
 
-        <Paper elevation={2} sx={{ p: 3 }}>
+        <Box sx={{ p: 2, bgcolor: 'grey.900', flexGrow: 1 }}>
           <TransactionResponse
             data={data?.data}
             isSuccess={isSuccess}
             error={error}
           />
-        </Paper>
+        </Box>
 
-        <Paper elevation={2} sx={{ p: 3 }}>
+        <Box sx={{ p: 2, bgcolor: 'grey.900' }}>
           <PromptForm
             isSuccess={isSuccess}
             prompt={prompt}
@@ -34,7 +42,7 @@ export const TransactionView = () => {
             handleSubmit={handleSubmit}
             isPending={isPending}
           />
-        </Paper>
+        </Box>
       </Stack>
     </Container>
   )

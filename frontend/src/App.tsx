@@ -7,6 +7,10 @@ const theme = createTheme({
   palette: {
     mode: 'dark',
   },
+
+  typography: {
+    fontFamily: 'IBM Plex Sans, sans-serif',
+  },
 })
 
 function App() {
