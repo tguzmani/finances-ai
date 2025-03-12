@@ -9,7 +9,9 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <Stack sx={{ height: '100vh' }}>
       <ApplicationBar />
-      <Box flexGrow={1}>{children}</Box>
+      <Box flexGrow={1} p={2}>
+        {children}
+      </Box>
     </Stack>
   )
 }

@@ -1,8 +1,7 @@
 import { ThemeProvider } from '@emotion/react'
 import './App.css'
-import { TransactionView } from './modules/transactions/components/transaction.view'
 import { createTheme, CssBaseline } from '@mui/material'
-import Layout from './modules/layout/layout'
+import DashboardPage from './pages/dashboard.page'
 
 const theme = createTheme({
   palette: {
@@ -18,9 +17,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Layout>
-        <TransactionView />
-      </Layout>
+      <DashboardPage />
     </ThemeProvider>
   )
 }

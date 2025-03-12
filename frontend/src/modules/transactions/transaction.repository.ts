@@ -3,6 +3,10 @@ import { TransactionData } from './components/transaction.response'
 import { TransactionResponse } from './transaction.service'
 
 class TransactionRepository extends AxiosRepository {
+  constructor() {
+    super('transactions')
+  }
+
   async createTransactionData(prompt: string): Promise<TransactionResponse> {
     return this.post('/create-transaction-data', { prompt })
   }

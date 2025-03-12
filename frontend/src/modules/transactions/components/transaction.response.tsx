@@ -13,6 +13,7 @@ import {
 
 import dayjs from 'dayjs'
 import { useSaveTransactionData } from '../transaction.service'
+import { useQueryClient } from '@tanstack/react-query'
 
 interface AccountEntry {
   account: string
@@ -42,6 +43,8 @@ export const TransactionResponse = ({
 }: TransactionResponseProps) => {
   const { mutate: saveTransactionData, isPending: isPendingSave } =
     useSaveTransactionData()
+
+  const queryClient = useQueryClient()
 
   if (error)
     return <Alert severity='error'>Error: {(error as Error).message}</Alert>
@@ -94,7 +97,11 @@ export const TransactionResponse = ({
   const description = sheetRows[0][1]
 
   const handleSave = () => {
-    saveTransactionData(data)
+    saveTransactionData(data, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['current-total-expense'] })
+      },
+    })
   }
 
   return (

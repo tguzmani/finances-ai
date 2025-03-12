@@ -15,16 +15,14 @@ export interface TransactionResponse {
   }
 }
 
-export const useCreateTransactionData = () => {
-  return useMutation<TransactionResponse, Error, string>({
+export const useCreateTransactionData = () =>
+  useMutation<TransactionResponse, Error, string>({
     mutationFn: (prompt: string) =>
       transactionRepository.createTransactionData(prompt),
   })
-}
 
-export const useSaveTransactionData = () => {
-  return useMutation<void, Error, TransactionData>({
+export const useSaveTransactionData = () =>
+  useMutation<void, Error, TransactionData>({
     mutationFn: (data: TransactionData) =>
       transactionRepository.saveTransactionData(data),
   })
-}
