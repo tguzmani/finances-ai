@@ -14,7 +14,8 @@ import {
 import dayjs from 'dayjs'
 import { useSaveTransactionData } from '../transaction.service'
 import { useQueryClient } from '@tanstack/react-query'
-import ExpenseQueryKeys from '../../expenses/expense.query-keys'
+import ExpenseQueryKeys from '../../expense/expense.query-keys'
+import AccountQueryKeys from '../../account/account.query-keys'
 
 interface AccountEntry {
   account: string
@@ -104,6 +105,7 @@ export const TransactionResponse = ({
           ExpenseQueryKeys.CURRENT_TOTAL_EXPENSE,
           ExpenseQueryKeys.TODAY_EXPENSE,
           ExpenseQueryKeys.EXPENSE_STATUS,
+          AccountQueryKeys.ACCOUNTS_OVERVIEW,
         ]) {
           queryClient.invalidateQueries({ queryKey: [key] })
         }

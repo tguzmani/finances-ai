@@ -4,14 +4,17 @@ import amount from '../../util/amount'
 
 interface AmountProps extends TypographyProps {
   children: number
+  currency?: 'ves' | 'usd'
 }
 
-const Amount = ({ children, ...props }: AmountProps) => {
+const Amount = ({ children, currency = 'usd', ...props }: AmountProps) => {
   const { visibility } = useVisibilityStore()
+
+  const currencySybol = currency === 'ves' ? 'Bs ' : '$'
 
   return (
     <Typography {...props}>
-      {visibility ? `$${amount(children)}` : '******'}
+      {visibility ? `${currencySybol}${amount(children)}` : '******'}
     </Typography>
   )
 }

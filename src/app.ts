@@ -6,6 +6,7 @@ import path from 'path'
 import transactionRoutes from './routes/transaction.routes'
 import expenseRoutes from './routes/expense.routes'
 import accountRoutes from './routes/account.routes'
+import exchangeRateRoutes from './routes/exchange-rate.routes'
 
 dotenv.config()
 
@@ -18,6 +19,7 @@ app.use(cors())
 app.use('/api/transactions', transactionRoutes)
 app.use('/api/expenses', expenseRoutes)
 app.use('/api/accounts', accountRoutes)
+app.use('/api/exchange-rates', exchangeRateRoutes)
 
 // Serve frontend static files
 if (process.env.NODE_ENV === 'production') {

@@ -7,6 +7,7 @@ import {
 import Amount from '../layout/amount'
 import Hideable from '../layout/hideable'
 import amount from '../../util/amount'
+import Indicator from '../layout/indicator'
 
 const CurrentTotalExpense = () => {
   const { data: currentTotalExpense } = useGetCurrentTotalExpense()
@@ -57,17 +58,16 @@ const CurrentTotalExpense = () => {
 
       <Stack spacing={1.5}>
         {expenseStatus?.map((status: any) => (
-          <Stack key={status.label}>
-            <Typography variant='caption' color='grey.700' lineHeight={0.95}>
-              {status.label}
-            </Typography>
-            <Typography
-              variant='caption'
-              color={status.satisfied ? 'success.light' : 'error.main'}
-            >
-              {status.satisfied ? 'OK' : 'ERROR'}
-            </Typography>
-          </Stack>
+          <Indicator
+            key={status.label}
+            label={status.label}
+            value={status.satisfied ? 'OK' : 'ERROR'}
+            slotProps={{
+              valueTypographyProps: {
+                color: status.satisfied ? 'success.light' : 'error.main',
+              },
+            }}
+          />
         ))}
       </Stack>
     </Stack>

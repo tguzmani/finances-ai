@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { expenseRepository } from './expense.repository'
 import ExpenseQueryKeys from './expense.query-keys'
-import { TodayExpensesResponse } from '../../../../src/controllers/expense.controller.model'
+import { TodayExpensesDto } from '../../../../src/controllers/expense.controller.model'
 
 export const useGetCurrentTotalExpense = () =>
   useQuery<number, Error>({
@@ -10,7 +10,7 @@ export const useGetCurrentTotalExpense = () =>
   })
 
 export const useGetTodayExpense = () =>
-  useQuery<TodayExpensesResponse, Error>({
+  useQuery<TodayExpensesDto, Error>({
     queryKey: [ExpenseQueryKeys.TODAY_EXPENSE],
     queryFn: () => expenseRepository.getTodayExpense(),
   })
