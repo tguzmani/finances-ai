@@ -12,7 +12,7 @@ export interface TransactionData {
 }
 
 const ACCOUNT_LIST = `
-Activos: Bofa,Banesco,Binance,Cash,Zinli,Bybit,Bofa TDC,Por cobrar Norma,Por cobrar Esther,Por cobrar Joao.
+Activos: Bofa,Banesco,Binance,Cash,Zinli,Bybit,Bofa TDC,Por cobrar Norma,Por cobrar Esther,Wallet.
 Pasivos: Por pagar Norma,Por pagar Esther.
 Patrimonio: Patrimonio.
 Ingresos: OneMeta,Devups,intereses.

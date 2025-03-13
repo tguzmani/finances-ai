@@ -31,7 +31,7 @@ export const TransactionView = (props: TransactionViewProps) => {
         sx={{ maxWidth: 700, height: '100%' }}
         justifyContent='flex-end'
       >
-        <Collapse in={Boolean(data?.data)}>
+        <Collapse in={Boolean(data?.data)} unmountOnExit>
           <Box sx={{ flexGrow: 1 }}>
             <TransactionRegistryTable
               handleCloseDialog={props.handleCloseDialog}
