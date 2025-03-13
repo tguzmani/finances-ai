@@ -1,5 +1,6 @@
 import { Typography, TypographyProps } from '@mui/material'
 import { useVisibilityStore } from '../../visibility.store'
+import amount from '../../util/amount'
 
 interface AmountProps extends TypographyProps {
   children: number
@@ -10,7 +11,7 @@ const Amount = ({ children, ...props }: AmountProps) => {
 
   return (
     <Typography {...props}>
-      {visibility ? `$${children.toFixed(2)}` : '******'}
+      {visibility ? `$${amount(children)}` : '******'}
     </Typography>
   )
 }
