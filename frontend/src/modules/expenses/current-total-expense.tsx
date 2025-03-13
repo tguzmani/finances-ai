@@ -21,21 +21,21 @@ const CurrentTotalExpense = () => {
 
   return (
     <Stack>
-      <Typography variant='caption' gutterBottom>
+      <Typography variant='body2' gutterBottom>
         Total Expense
       </Typography>
-      <Amount variant='h5' fontWeight={600}>
+      <Amount variant='h4' fontWeight={600}>
         {currentTotalExpense ?? ''}
       </Amount>
 
       <Stack direction='row' alignItems='center' spacing={0.5}>
-        <Typography variant='caption'>Today Expense</Typography>
-        <Hideable variant='caption' color='grey.400'>
-          <Amount variant='caption' fontWeight={600}>
+        <Typography variant='body2'>Today Expense</Typography>
+        <Hideable variant='body2' color='grey.400'>
+          <Amount variant='body2' fontWeight={600}>
             {todayExpense.totalExpense ?? ''}
           </Amount>
 
-          <Typography variant='caption' fontWeight={600}>
+          <Typography variant='body2' fontWeight={600}>
             (
             {todayExpense.expenseDifference > 0
               ? '+'
