@@ -1,12 +1,12 @@
 import { Router } from 'express'
 import {
-  createTransactionData,
+  getTransactionData,
   saveTransactionData,
 } from '../controllers/transaction.controller'
 
 const router = Router()
 
-router.post('/create-transaction-data', createTransactionData)
+router.post('/transaction-data', getTransactionData)
 router.post('/save-transaction-data', saveTransactionData)
 
 export default router

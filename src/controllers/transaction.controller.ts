@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import llmService from '../services/llm.service'
 import sheetsService from '../services/sheets.service'
 
-export const createTransactionData = async (req: Request, res: Response) => {
+export const getTransactionData = async (req: Request, res: Response) => {
   const { prompt } = req.body
 
   try {

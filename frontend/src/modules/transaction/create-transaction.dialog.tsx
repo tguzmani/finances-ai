@@ -1,11 +1,11 @@
 import AddIcon from '@mui/icons-material/Add'
 import {
-  DialogContent,
-  DialogTitle,
+  Box,
   Drawer,
   Fab,
   IconButton,
   Slide,
+  Stack,
   Typography,
 } from '@mui/material'
 import usePortal from '../../hooks/use-portal'
@@ -41,24 +41,24 @@ const CreateTransactionDialog = () => {
           backdrop: { sx: { backdropFilter: 'blur(4px)' } },
         }}
       >
-        <DialogTitle mb={2}>
-          <Typography variant='body1' fontWeight={600} align='center'>
-            Create Transaction
-          </Typography>
+        <Stack p={2} spacing={3}>
+          <Box>
+            <Typography variant='body1' fontWeight={600} align='center'>
+              Create Transaction
+            </Typography>
 
-          <IconButton
-            sx={{ position: 'absolute', top: 12, left: 12 }}
-            disableRipple
-            size='small'
-            onClick={portalProps.onClose}
-          >
-            <CloseIcon sx={{ fontSize: 20 }} />
-          </IconButton>
-        </DialogTitle>
+            <IconButton
+              sx={{ position: 'absolute', top: 12, left: 12 }}
+              disableRipple
+              size='small'
+              onClick={portalProps.onClose}
+            >
+              <CloseIcon sx={{ fontSize: 20 }} />
+            </IconButton>
+          </Box>
 
-        <DialogContent>
           <TransactionView handleCloseDialog={portalProps.onClose} />
-        </DialogContent>
+        </Stack>
       </Drawer>
 
       <Fab
