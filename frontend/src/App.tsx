@@ -10,6 +10,10 @@ const theme = createTheme({
 
   typography: {
     fontFamily: 'IBM Plex Sans, sans-serif',
+
+    overline: {
+      textTransform: 'none',
+    },
   },
 })
 

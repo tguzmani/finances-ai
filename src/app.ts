@@ -12,8 +12,6 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-// Serve frontend static files
-
 // Routes
 app.use('/api/transactions', transactionRoutes)
 app.use('/api/expenses', expenseRoutes)

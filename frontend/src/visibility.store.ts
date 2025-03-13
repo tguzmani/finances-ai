@@ -6,6 +6,6 @@ type VisibilityStore = {
 }
 
 export const useVisibilityStore = create<VisibilityStore>(set => ({
-  visibility: false,
+  visibility: true,
   toggleVisibility: () => set(state => ({ visibility: !state.visibility })),
 }))

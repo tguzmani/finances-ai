@@ -10,6 +10,12 @@ class ExpenseRepository extends AxiosRepository {
 
     return response.currentTotalExpense
   }
+
+  async getTodayExpense(): Promise<any> {
+    const response = await this.get<any>('/today-expense')
+
+    return response
+  }
 }
 
 export const expenseRepository = new ExpenseRepository()

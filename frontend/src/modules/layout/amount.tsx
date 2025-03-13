@@ -9,9 +9,7 @@ const Amount = ({ children, ...props }: AmountProps) => {
   const { visibility } = useVisibilityStore()
 
   return (
-    <Typography {...props}>
-      {visibility ? `$ ${children}` : '******'}
-    </Typography>
+    <Typography {...props}>{visibility ? `$${children}` : '******'}</Typography>
   )
 }
 

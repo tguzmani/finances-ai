@@ -12,7 +12,7 @@ const ApplicationBar = () => {
   const ToggleVisibilityIcon = visibility ? VisibilityIcon : VisibilityOffIcon
 
   return (
-    <AppBar position='static' sx={{ height: HEIGHT }}>
+    <AppBar position='static' sx={{ height: HEIGHT, boxShadow: 0 }}>
       <Toolbar sx={{ minHeight: HEIGHT }}>
         <Typography variant='body2' component='div' sx={{ flexGrow: 1 }}>
           Fin<span style={{ fontWeight: 700 }}>AI</span>
