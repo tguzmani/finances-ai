@@ -20,8 +20,8 @@ const CurrentTotalExpense = () => {
   const expenseDifferenceAbs = amount(Math.abs(todayExpense.expenseDifference))
 
   return (
-    <Stack>
-      <Typography variant='body2' gutterBottom>
+    <Stack spacing={0.5}>
+      <Typography variant='body2' gutterBottom color='grey.300'>
         Total Expense
       </Typography>
       <Amount variant='h4' fontWeight={600}>
@@ -29,13 +29,14 @@ const CurrentTotalExpense = () => {
       </Amount>
 
       <Stack direction='row' alignItems='center' spacing={0.5}>
-        <Typography variant='body2'>Today Expense</Typography>
-        <Hideable variant='body2' color='grey.400'>
-          <Amount variant='body2' fontWeight={600}>
-            {todayExpense.totalExpense ?? ''}
-          </Amount>
+        <Typography variant='body2' color='grey.300'>
+          Today Expense
+        </Typography>
 
-          <Typography variant='body2' fontWeight={600}>
+        <Hideable variant='body2' color='grey.400'>
+          <Amount variant='body2'>{todayExpense.totalExpense ?? ''}</Amount>
+
+          <Typography variant='body2'>
             (
             {todayExpense.expenseDifference > 0
               ? '+'
