@@ -14,3 +14,9 @@ export const useGetTodayExpense = () =>
     queryKey: [ExpenseQueryKeys.TODAY_EXPENSE],
     queryFn: () => expenseRepository.getTodayExpense(),
   })
+
+export const useGetExpenseStatus = () =>
+  useQuery<any, Error>({
+    queryKey: [ExpenseQueryKeys.EXPENSE_STATUS],
+    queryFn: () => expenseRepository.getExpenseStatus(),
+  })

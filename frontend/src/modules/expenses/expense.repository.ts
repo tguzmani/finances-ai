@@ -17,6 +17,12 @@ class ExpenseRepository extends AxiosRepository {
 
     return response
   }
+
+  async getExpenseStatus(): Promise<string> {
+    const response = await this.get<any>('/expense-status')
+
+    return response
+  }
 }
 
 export const expenseRepository = new ExpenseRepository()
