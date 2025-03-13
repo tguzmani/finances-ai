@@ -6,7 +6,6 @@ import {
   Fab,
   IconButton,
   Slide,
-  Stack,
   Typography,
 } from '@mui/material'
 import usePortal from '../../hooks/use-portal'
@@ -42,18 +41,19 @@ const CreateTransactionDialog = () => {
           backdrop: { sx: { backdropFilter: 'blur(4px)' } },
         }}
       >
-        <DialogTitle>
-          <Stack direction='row' justifyContent='space-between'>
-            <Typography variant='h6'>Create Transaction</Typography>
+        <DialogTitle mb={2}>
+          <Typography variant='body1' fontWeight={600} align='center'>
+            Create Transaction
+          </Typography>
 
-            <IconButton
-              disableRipple
-              size='small'
-              onClick={portalProps.onClose}
-            >
-              <CloseIcon />
-            </IconButton>
-          </Stack>
+          <IconButton
+            sx={{ position: 'absolute', top: 12, left: 12 }}
+            disableRipple
+            size='small'
+            onClick={portalProps.onClose}
+          >
+            <CloseIcon sx={{ fontSize: 20 }} />
+          </IconButton>
         </DialogTitle>
 
         <DialogContent>

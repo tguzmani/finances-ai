@@ -32,7 +32,9 @@ export const PromptForm = ({
         multiline
         rows={4}
         slotProps={{
-          input: { sx: { p: 1, fontSize: 14, bgcolor: 'background.default' } },
+          input: {
+            sx: { p: 1.5, fontSize: 14, bgcolor: 'background.default' },
+          },
         }}
         onChange={e => setPrompt(e.target.value)}
         fullWidth

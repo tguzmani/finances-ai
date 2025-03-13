@@ -15,6 +15,16 @@ const theme = createTheme({
       textTransform: 'none',
     },
   },
+
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+        },
+      },
+    },
+  },
 })
 
 function App() {

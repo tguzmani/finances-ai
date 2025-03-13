@@ -9,6 +9,7 @@ import {
   Typography,
   Button,
   TableContainer,
+  Divider,
 } from '@mui/material'
 
 import dayjs from 'dayjs'
@@ -120,15 +121,16 @@ export const TransactionRegistryTable = ({
   return (
     <Stack spacing={2} justifyContent='space-between' height='100%'>
       <Stack spacing={2}>
-        <Stack spacing={0}>
-          <Typography variant='body1' align='center'>
-            {dayjs(date).format('DD MMM, YYYY')}
-          </Typography>
-
-          <Typography variant='body1' align='center'>
+        <Stack spacing={0} direction='row' justifyContent='space-between'>
+          <Typography variant='body2' align='center'>
             {description}
           </Typography>
+          <Typography variant='body2' align='center' color='grey.400'>
+            {dayjs(date).format('DD MMM, YYYY')}
+          </Typography>
         </Stack>
+
+        <Divider />
 
         <TableContainer>
           <Table size='small'>
@@ -139,7 +141,7 @@ export const TransactionRegistryTable = ({
                     p: 0,
                     border: 0,
                     fontSize: 11,
-                    color: 'grey.600',
+                    color: 'grey.500',
                   },
                 }}
               >
