@@ -2,6 +2,7 @@ import { Skeleton, Stack, Typography } from '@mui/material'
 import { useGetCurrentTotalExpense, useGetTodayExpense } from './expense.query'
 import Amount from '../layout/amount'
 import Hideable from '../layout/hideable'
+import amount from '../../util/amount'
 
 const CurrentTotalExpense = () => {
   const { data: currentTotalExpense } = useGetCurrentTotalExpense()
@@ -16,7 +17,7 @@ const CurrentTotalExpense = () => {
       </Stack>
     )
 
-  const expenseDifferenceAbs = Math.abs(todayExpense.expenseDifference)
+  const expenseDifferenceAbs = amount(Math.abs(todayExpense.expenseDifference))
 
   return (
     <Stack>
@@ -38,7 +39,7 @@ const CurrentTotalExpense = () => {
             (
             {todayExpense.expenseDifference > 0
               ? '+'
-              : expenseDifferenceAbs === 0
+              : todayExpense.expenseDifference === 0
               ? ''
               : '–'}
             ${expenseDifferenceAbs})
