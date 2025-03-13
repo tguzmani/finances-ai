@@ -1,15 +1,22 @@
-import { Stack, Typography } from '@mui/material'
+import { Skeleton, Stack, Typography } from '@mui/material'
 import { useGetCurrentTotalExpense, useGetTodayExpense } from './expense.query'
 import Amount from '../layout/amount'
 import Hideable from '../layout/hideable'
 
 const CurrentTotalExpense = () => {
   const { data: currentTotalExpense } = useGetCurrentTotalExpense()
-  const {
-    data: { totalExpense, expenseDifference },
-  } = useGetTodayExpense()
+  const { data: todayExpense } = useGetTodayExpense()
 
-  const expenseDifferenceAbs = Math.abs(expenseDifference)
+  if (!currentTotalExpense || !todayExpense)
+    return (
+      <Stack spacing={1}>
+        <Skeleton width='25%' animation='wave' variant='text' />
+        <Skeleton width='40%' animation='wave' variant='rounded' />
+        <Skeleton width='45%' animation='wave' variant='text' />
+      </Stack>
+    )
+
+  const expenseDifferenceAbs = Math.abs(todayExpense.expenseDifference)
 
   return (
     <Stack>
@@ -24,16 +31,16 @@ const CurrentTotalExpense = () => {
         <Typography variant='caption'>Today Expense</Typography>
         <Hideable variant='caption' color='grey.400'>
           <Amount variant='caption' fontWeight={600}>
-            {totalExpense ?? ''}
+            {todayExpense.totalExpense ?? ''}
           </Amount>
 
           <Typography variant='caption' fontWeight={600}>
             (
-            {expenseDifference > 0
+            {todayExpense.expenseDifference > 0
               ? '+'
               : expenseDifferenceAbs === 0
               ? ''
-              : '-'}
+              : '–'}
             ${expenseDifferenceAbs})
           </Typography>
         </Hideable>

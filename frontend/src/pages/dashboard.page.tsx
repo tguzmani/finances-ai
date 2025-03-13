@@ -8,7 +8,7 @@ const DashboardPage = () => {
     <Layout>
       <Stack spacing={2}>
         <CurrentTotalExpense />
-        {false && <TransactionView />}
+        <TransactionView />
       </Stack>
     </Layout>
   )

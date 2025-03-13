@@ -1,3 +1,4 @@
+import { TodayExpensesResponse } from './../../../../src/controllers/expense.controller.model'
 import { AxiosRepository } from '../../common/axios.repository'
 
 class ExpenseRepository extends AxiosRepository {
@@ -11,7 +12,7 @@ class ExpenseRepository extends AxiosRepository {
     return response.currentTotalExpense
   }
 
-  async getTodayExpense(): Promise<any> {
+  async getTodayExpense(): Promise<TodayExpensesResponse> {
     const response = await this.get<any>('/today-expense')
 
     return response

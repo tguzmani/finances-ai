@@ -39,7 +39,7 @@ export const PromptForm = ({
       <Button
         variant='contained'
         type={'submit'}
-        disabled={isPending}
+        disabled={isPending || prompt === ''}
         loading={isPending}
         onClick={handleSubmit}
       >
@@ -50,7 +50,7 @@ export const PromptForm = ({
       <Button
         variant='text'
         type='button'
-        disabled={isPending}
+        disabled={isPending || prompt === ''}
         onClick={handleClearPrompt}
       >
         Clear
