@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { transactionRepository } from './transaction.repository'
-import { TransactionData } from './components/transaction.response'
+import { TransactionData } from './transaction-registry.table'
 
 export interface TransactionResponse {
   message: string
@@ -14,12 +14,6 @@ export interface TransactionResponse {
     subcategory?: string
   }
 }
-
-export const useCreateTransactionData = () =>
-  useMutation<TransactionResponse, Error, string>({
-    mutationFn: (prompt: string) =>
-      transactionRepository.createTransactionData(prompt),
-  })
 
 export const useSaveTransactionData = () =>
   useMutation<void, Error, TransactionData>({

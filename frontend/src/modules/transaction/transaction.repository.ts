@@ -1,5 +1,5 @@
 import { AxiosRepository } from '../../common/axios.repository'
-import { TransactionData } from './components/transaction.response'
+import { TransactionData } from './transaction-registry.table'
 import { TransactionResponse } from './transaction.service'
 
 class TransactionRepository extends AxiosRepository {
@@ -7,8 +7,8 @@ class TransactionRepository extends AxiosRepository {
     super('transactions')
   }
 
-  async createTransactionData(prompt: string): Promise<TransactionResponse> {
-    return this.post('/create-transaction-data', { prompt })
+  async getTransactionData(prompt: string): Promise<TransactionResponse> {
+    return this.post('/transaction-data', { prompt })
   }
 
   async saveTransactionData(transactionData: TransactionData): Promise<void> {

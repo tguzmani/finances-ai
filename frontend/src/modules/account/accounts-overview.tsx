@@ -16,8 +16,6 @@ import Amount from '../layout/amount'
 const AccountsOverview = () => {
   const { data: rows } = useGetAccountsOverview()
 
-  console.log('rows:', rows)
-
   if (!rows)
     return (
       <Stack>

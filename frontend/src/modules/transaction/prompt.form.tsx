@@ -27,10 +27,13 @@ export const PromptForm = ({
   return (
     <Stack spacing={2} component='form' onSubmit={handleSendPrompt}>
       <TextField
-        label='Transaction Prompt'
+        placeholder='Enter your transaction'
         value={prompt}
         multiline
         rows={4}
+        slotProps={{
+          input: { sx: { p: 1, fontSize: 14, bgcolor: 'background.default' } },
+        }}
         onChange={e => setPrompt(e.target.value)}
         fullWidth
         required

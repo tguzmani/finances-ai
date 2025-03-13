@@ -7,15 +7,15 @@ import {
   Alert,
   Stack,
   Typography,
-  Box,
   Button,
+  TableContainer,
 } from '@mui/material'
 
 import dayjs from 'dayjs'
-import { useSaveTransactionData } from '../transaction.service'
+import { useSaveTransactionData } from './transaction.service'
 import { useQueryClient } from '@tanstack/react-query'
-import ExpenseQueryKeys from '../../expense/expense.query-keys'
-import AccountQueryKeys from '../../account/account.query-keys'
+import ExpenseQueryKeys from '../expense/expense.query-keys'
+import AccountQueryKeys from '../account/account.query-keys'
 
 interface AccountEntry {
   account: string
@@ -36,12 +36,14 @@ interface TransactionResponseProps {
   data?: TransactionData
   isSuccess: boolean
   error: unknown
+  handleCloseDialog: () => void
 }
 
-export const TransactionResponse = ({
+export const TransactionRegistryTable = ({
   data,
   isSuccess,
   error,
+  handleCloseDialog,
 }: TransactionResponseProps) => {
   const { mutate: saveTransactionData, isPending: isPendingSave } =
     useSaveTransactionData()
@@ -109,6 +111,8 @@ export const TransactionResponse = ({
         ]) {
           queryClient.invalidateQueries({ queryKey: [key] })
         }
+
+        handleCloseDialog()
       },
     })
   }
@@ -126,41 +130,48 @@ export const TransactionResponse = ({
           </Typography>
         </Stack>
 
-        <Box
-          sx={{
-            width: '100%',
-            overflow: 'auto',
-            border: '1px solid',
-            borderColor: 'grey.700',
-            borderRadius: 1,
-          }}
-        >
+        <TableContainer>
           <Table size='small'>
             <TableHead>
-              <TableRow>
-                <TableCell>Debe</TableCell>
-                <TableCell>Haber</TableCell>
+              <TableRow
+                sx={{
+                  '& .MuiTableCell-root': {
+                    p: 0,
+                    border: 0,
+                    fontSize: 11,
+                    color: 'grey.600',
+                  },
+                }}
+              >
+                <TableCell>Debit</TableCell>
+                <TableCell>Credit</TableCell>
                 <TableCell></TableCell>
                 <TableCell></TableCell>
-                <TableCell>Categoría</TableCell>
-                <TableCell>Subcategoría</TableCell>
+                <TableCell align='right'>Category</TableCell>
+                <TableCell align='right'>Subcategory</TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
               {sheetRows.map((row, i) => (
-                <TableRow key={i}>
+                <TableRow
+                  key={i}
+                  sx={{
+                    '& .MuiTableCell-root': { fontSize: 12, px: 0 },
+                    '& td, & th': { border: 0 },
+                  }}
+                >
                   <TableCell>{row[2]}</TableCell>
                   <TableCell>{row[3]}</TableCell>
-                  <TableCell>{row[4]}</TableCell>
-                  <TableCell>{row[5]}</TableCell>
-                  <TableCell>{row[6]}</TableCell>
-                  <TableCell>{row[7]}</TableCell>
+                  <TableCell align='right'>{row[4]}</TableCell>
+                  <TableCell align='right'>{row[5]}</TableCell>
+                  <TableCell align='right'>{row[6]}</TableCell>
+                  <TableCell align='right'>{row[7]}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
-        </Box>
+        </TableContainer>
       </Stack>
 
       {data && (
@@ -177,4 +188,4 @@ export const TransactionResponse = ({
   )
 }
 
-export default TransactionResponse
+export default TransactionRegistryTable
