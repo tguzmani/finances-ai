@@ -21,9 +21,7 @@ const AccountsOverview = () => {
   if (!rows)
     return (
       <Stack>
-        <Skeleton variant='rectangular' height={50} />
-        <Skeleton variant='rectangular' height={50} />
-        <Skeleton variant='rectangular' height={50} />
+        <Skeleton variant='rounded' animation='wave' height={150} />
       </Stack>
     )
   return (
