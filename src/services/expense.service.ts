@@ -1,9 +1,13 @@
 import dayjs from 'dayjs'
 import { CURRENT_TOTAL_EXPENSE_CELL } from '../common/constants/cells.constants'
-import { JOURNAL_BOOK_RANGE } from '../common/constants/range.constants'
+import {
+  EXPENSE_STATUSES_RANGE,
+  JOURNAL_BOOK_RANGE,
+} from '../common/constants/range.constants'
 import sheetsRepository from '../common/sheets.repository'
+import { amountToFloat } from '../util'
 
-const getCurrentTotalExpense = async () => {
+export async function getCurrentTotalExpense() {
   const cellValue = await sheetsRepository.getSheetValues(
     CURRENT_TOTAL_EXPENSE_CELL
   )
@@ -12,10 +16,10 @@ const getCurrentTotalExpense = async () => {
     throw new Error('❌ Failed to get current total expense.')
   }
 
-  return parseFloat(cellValue[0][0].replace('$', ''))
+  return amountToFloat(cellValue[0][0])
 }
 
-const getTodayExpense = async () => {
+async function getTodayExpense() {
   const journalBookRange = await sheetsRepository.getSheetValues(
     JOURNAL_BOOK_RANGE
   )
@@ -58,9 +62,32 @@ const getTodayExpense = async () => {
   }
 }
 
+async function getExpenseStatus() {
+  const expenseStatus = await sheetsRepository.getSheetValues(
+    EXPENSE_STATUSES_RANGE
+  )
+
+  if (!expenseStatus || expenseStatus.length === 0) {
+    throw new Error('❌ Failed to get expense status data.')
+  }
+
+  const assetsEqualsLiabilitiesPlusEquity = {
+    satisfied: expenseStatus[0][1] === 'TRUE',
+    label: 'ALE',
+  }
+
+  const journalExpenseEqualsBudgetsExpense = {
+    satisfied: expenseStatus[1][1] === 'TRUE',
+    label: 'GP = GL',
+  }
+
+  return [assetsEqualsLiabilitiesPlusEquity, journalExpenseEqualsBudgetsExpense]
+}
+
 const expenseService = {
   getCurrentTotalExpense,
   getTodayExpense,
+  getExpenseStatus,
 }
 
 export default expenseService

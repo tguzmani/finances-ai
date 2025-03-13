@@ -26,3 +26,16 @@ export const getTodayExpense = async (_req: Request, res: Response) => {
     })
   }
 }
+
+export const getExpenseStatus = async (_req: Request, res: Response) => {
+  try {
+    const expenseStatus = await expenseService.getExpenseStatus()
+
+    res.status(200).json(expenseStatus)
+  } catch (error: any) {
+    console.error('Sheets Test Error:', error)
+    res.status(500).json({
+      error: error.message || '❌ Google Sheets connection failed!',
+    })
+  }
+}

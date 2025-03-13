@@ -2,8 +2,10 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import path from 'path'
+
 import transactionRoutes from './routes/transaction.routes'
 import expenseRoutes from './routes/expense.routes'
+import accountRoutes from './routes/account.routes'
 
 dotenv.config()
 
@@ -15,6 +17,7 @@ app.use(cors())
 // Routes
 app.use('/api/transactions', transactionRoutes)
 app.use('/api/expenses', expenseRoutes)
+app.use('/api/accounts', accountRoutes)
 
 // Serve frontend static files
 if (process.env.NODE_ENV === 'production') {
