@@ -17,8 +17,8 @@ export default defineConfig({
         description: 'A simple finance tracker',
         start_url: '/',
         display: 'standalone',
-        background_color: '#030712',
-        theme_color: '#030712',
+        background_color: '#212121',
+        theme_color: '#212121',
         orientation: 'portrait',
         scope: '/',
         icons: [
