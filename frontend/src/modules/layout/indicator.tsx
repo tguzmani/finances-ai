@@ -1,8 +1,15 @@
-import { Stack, StackProps, Typography, TypographyProps } from '@mui/material'
+import {
+  Skeleton,
+  Stack,
+  StackProps,
+  Typography,
+  TypographyProps,
+} from '@mui/material'
 
 interface IndicatorProps {
   label: string
   value: string
+  loading?: boolean
   slotProps?: {
     labelTypographyProps?: TypographyProps
     valueTypographyProps?: TypographyProps
@@ -22,9 +29,16 @@ const Indicator = (props: IndicatorProps) => {
         {props.label}
       </Typography>
 
-      <Typography variant='caption' {...props?.slotProps?.valueTypographyProps}>
-        {props.value}
-      </Typography>
+      {props.loading ? (
+        <Skeleton variant='text' width={40} animation='wave' />
+      ) : (
+        <Typography
+          variant='caption'
+          {...props?.slotProps?.valueTypographyProps}
+        >
+          {props.value}
+        </Typography>
+      )}
     </Stack>
   )
 }

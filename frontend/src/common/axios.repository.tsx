@@ -22,4 +22,9 @@ export class AxiosRepository {
     const response = await this.client.get<T>(url)
     return response.data
   }
+
+  async put<T>(url: string, data: unknown): Promise<T> {
+    const response = await this.client.put<T>(url, data)
+    return response.data
+  }
 }

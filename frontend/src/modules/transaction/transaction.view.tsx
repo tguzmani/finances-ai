@@ -1,9 +1,9 @@
 // transaction.view.tsx
 import { useState } from 'react'
-import { Stack, Container, Collapse, Box } from '@mui/material'
-import { PromptForm } from './prompt.form'
+import { Stack, Container, Collapse } from '@mui/material'
 import { TransactionRegistryTable } from './transaction-registry.table'
 import { useGetTransactionData } from './transaction.query'
+import { BottomDrawerInput } from '../layout/bottom-drawer-input'
 
 interface TransactionViewProps {
   handleCloseDialog: () => void
@@ -32,24 +32,20 @@ export const TransactionView = (props: TransactionViewProps) => {
         justifyContent='flex-end'
       >
         <Collapse in={Boolean(data?.data)} unmountOnExit>
-          <Box sx={{ flexGrow: 1 }}>
-            <TransactionRegistryTable
-              handleCloseDialog={props.handleCloseDialog}
-              data={data?.data}
-              isSuccess={isSuccess}
-              error={error}
-            />
-          </Box>
+          <TransactionRegistryTable
+            handleCloseDialog={props.handleCloseDialog}
+            data={data?.data}
+            isSuccess={isSuccess}
+            error={error}
+          />
         </Collapse>
 
-        <Box>
-          <PromptForm
-            prompt={prompt}
-            setPrompt={setPrompt}
-            handleSubmit={handleSubmit}
-            isPending={isFetching}
-          />
-        </Box>
+        <BottomDrawerInput
+          value={prompt}
+          setValue={setPrompt}
+          handleSubmit={handleSubmit}
+          isPending={isFetching}
+        />
       </Stack>
     </Container>
   )

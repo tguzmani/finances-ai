@@ -13,7 +13,7 @@ import {
 } from '@mui/material'
 
 import dayjs from 'dayjs'
-import { useSaveTransactionData } from './transaction.service'
+import { useSaveTransactionData } from './transaction.command'
 import { useQueryClient } from '@tanstack/react-query'
 import ExpenseQueryKeys from '../expense/expense.query-keys'
 import AccountQueryKeys from '../account/account.query-keys'

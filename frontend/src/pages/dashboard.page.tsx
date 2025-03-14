@@ -2,7 +2,7 @@ import { Divider, Stack, styled } from '@mui/material'
 import Layout from '../modules/layout/layout'
 import CurrentTotalExpense from '../modules/expense/current-total-expense'
 import ExchangeRatesOverview from '../modules/exchange-rate/exchange-rates-overview'
-import CreateTransactionDialog from '../modules/transaction/create-transaction.dialog'
+import CreateTransactionDrawer from '../modules/transaction/create-transaction.drawer'
 import DashboardTabs from '../modules/dashboard/dashboard.tabs'
 
 const FullWidthDivider = styled(Divider)(() => ({
@@ -13,7 +13,7 @@ const FullWidthDivider = styled(Divider)(() => ({
 const DashboardPage = () => {
   return (
     <Layout>
-      <Stack spacing={3} overflow='visible'>
+      <Stack spacing={2} overflow='visible'>
         <CurrentTotalExpense />
 
         <FullWidthDivider />
@@ -25,7 +25,7 @@ const DashboardPage = () => {
         <DashboardTabs />
       </Stack>
 
-      <CreateTransactionDialog />
+      <CreateTransactionDrawer />
     </Layout>
   )
 }

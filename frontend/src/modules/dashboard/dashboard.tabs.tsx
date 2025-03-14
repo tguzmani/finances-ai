@@ -12,7 +12,7 @@ const DashboardTabs = () => {
   }
 
   return (
-    <Stack spacing={1}>
+    <Stack spacing={2}>
       <Tabs
         sx={{
           width: 'calc(100vw - 16px)',
@@ -29,7 +29,7 @@ const DashboardTabs = () => {
         onChange={handleChange}
       >
         <Tab disableRipple label='Accounts' />
-        <Tab disableRipple label='Expenses' />
+        <Tab disableRipple disabled label='Expenses' />
       </Tabs>
 
       <AccountsOverview />

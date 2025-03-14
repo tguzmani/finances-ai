@@ -1,6 +1,6 @@
 import { AxiosRepository } from '../../common/axios.repository'
 import { TransactionData } from './transaction-registry.table'
-import { TransactionResponse } from './transaction.service'
+import { TransactionResponse } from './transaction.command'
 
 class TransactionRepository extends AxiosRepository {
   constructor() {

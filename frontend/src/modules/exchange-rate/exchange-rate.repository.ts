@@ -11,6 +11,10 @@ class ExchangeRateRepository extends AxiosRepository {
 
     return response
   }
+
+  async updateExchangeRate(exchangeRate: string): Promise<void> {
+    await this.put('/vesusd', { exchangeRate })
+  }
 }
 
 export const exchangeRateRepository = new ExchangeRateRepository()
