@@ -15,10 +15,10 @@ const ExchangeRatesOverview = () => {
   if (!exchangeRatesOverview)
     return (
       <Stack direction='row' justifyContent='space-between'>
-        <Skeleton variant='rounded' width={70} height={40} />
-        <Skeleton variant='rounded' width={70} height={40} />
-        <Skeleton variant='rounded' width={70} height={40} />
-        <Skeleton variant='rounded' width={70} height={40} />
+        <Skeleton animation='wave' variant='rounded' width={70} height={40} />
+        <Skeleton animation='wave' variant='rounded' width={70} height={40} />
+        <Skeleton animation='wave' variant='rounded' width={70} height={40} />
+        <Skeleton animation='wave' variant='rounded' width={70} height={40} />
       </Stack>
     )
 

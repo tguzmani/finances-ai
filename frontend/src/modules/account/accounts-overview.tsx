@@ -14,9 +14,9 @@ import { useGetAccountsOverview } from './account.query'
 import Amount from '../layout/amount'
 
 const AccountsOverview = () => {
-  const { data: rows } = useGetAccountsOverview()
+  const { data: accountOverviewAccounts } = useGetAccountsOverview()
 
-  if (!rows)
+  if (!accountOverviewAccounts)
     return (
       <Stack>
         <Skeleton variant='rounded' animation='wave' height={150} />
@@ -37,7 +37,7 @@ const AccountsOverview = () => {
             }}
           >
             <TableCell>Account</TableCell>
-            <TableCell align='right'>Initial</TableCell>
+            {/* <TableCell align='right'>Initial</TableCell> */}
             <TableCell align='right'>In</TableCell>
             <TableCell align='right'>Out</TableCell>
             <TableCell align='right'>Balance</TableCell>
@@ -45,7 +45,7 @@ const AccountsOverview = () => {
         </TableHead>
 
         <TableBody>
-          {rows.map(row => (
+          {accountOverviewAccounts.map(row => (
             <TableRow
               key={row.id}
               sx={{
@@ -53,6 +53,7 @@ const AccountsOverview = () => {
                   px: 0,
                   py: 1,
                   border: 0,
+                  verticalAlign: 'top',
                 },
                 '& td, & th': { border: 0 },
               }}
@@ -60,17 +61,29 @@ const AccountsOverview = () => {
               <TableCell sx={{ flexGrow: 1 }} component='th' scope='row'>
                 <Typography variant='body2'>{row.label}</Typography>
               </TableCell>
-              <TableCell sx={{ width: '16%' }} align='right'>
-                <Amount variant='caption'>{row.initialBalance}</Amount>
+              {/* <TableCell sx={{ width: '20%' }} align='right'>
+                <Amount currency={row.currency} variant='caption'>
+                  {row.initialBalance}
+                </Amount>
+              </TableCell> */}
+              <TableCell sx={{ width: '25%' }} align='right'>
+                <Amount currency={row.currency} variant='caption'>
+                  {row.in}
+                </Amount>
               </TableCell>
-              <TableCell sx={{ width: '16%' }} align='right'>
-                <Amount variant='caption'>{row.in}</Amount>
+              <TableCell sx={{ width: '25%' }} align='right'>
+                <Amount currency={row.currency} variant='caption'>
+                  {row.out}
+                </Amount>
               </TableCell>
-              <TableCell sx={{ width: '16%' }} align='right'>
-                <Amount variant='caption'>{row.out}</Amount>
-              </TableCell>
-              <TableCell sx={{ width: '16%' }} align='right'>
-                <Amount variant='caption'>{row.balance}</Amount>
+              <TableCell sx={{ width: '25%' }} align='right'>
+                <Amount
+                  currency={row.currency}
+                  variant='caption'
+                  fontWeight={600}
+                >
+                  {row.balance}
+                </Amount>
               </TableCell>
             </TableRow>
           ))}
