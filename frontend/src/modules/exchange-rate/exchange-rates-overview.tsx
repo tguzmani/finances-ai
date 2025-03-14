@@ -1,4 +1,4 @@
-import { Box, IconButton, Skeleton, Stack, Typography } from '@mui/material'
+import { IconButton, Skeleton, Stack, Typography } from '@mui/material'
 import { useGetExchangeRatesOverview } from './exchange-rate.query'
 import Indicator from '../layout/indicator'
 import amount from '../../util/amount'
