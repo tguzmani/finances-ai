@@ -10,14 +10,16 @@ async function getAccountsOverview() {
     throw new Error('❌ Failed to get accounts data.')
   }
 
-  const accounts: AccountOverviewDto[] = accountsRange.map(row => ({
-    id: row[0],
-    label: row[0],
-    initialBalance: amountToFloat(row[1]),
-    in: amountToFloat(row[4]),
-    out: amountToFloat(row[5]),
-    balance: amountToFloat(row[6]),
-  }))
+  const accounts: AccountOverviewDto[] = accountsRange
+    .map(row => ({
+      id: row[0],
+      label: row[0],
+      initialBalance: amountToFloat(row[1]),
+      in: amountToFloat(row[4]),
+      out: amountToFloat(row[5]),
+      balance: amountToFloat(row[6]),
+    }))
+    .sort((a, b) => a.label.localeCompare(b.label))
 
   return accounts
 }

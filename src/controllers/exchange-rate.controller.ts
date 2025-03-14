@@ -14,3 +14,18 @@ export async function getExchangeRateOverview(_req: Request, res: Response) {
     })
   }
 }
+
+export async function updateExchangeRate(req: Request, res: Response) {
+  try {
+    const { exchangeRate } = req.body
+
+    await exchangeRateService.updateExchangeRate(exchangeRate)
+
+    res.status(200).json({ message: 'Exchange rate updated' })
+  } catch (error: any) {
+    console.error('Sheets Test Error:', error)
+    res.status(500).json({
+      error: error.message || '❌ Error updating exchange rate',
+    })
+  }
+}

@@ -1,6 +1,7 @@
 import { google } from 'googleapis'
 import { TransactionData } from './llm.service'
 import dotenv from 'dotenv'
+import sheetsRepository from '../common/sheets.repository'
 
 dotenv.config()
 
@@ -95,12 +96,7 @@ export const insertTransactionToSheet = async (data: TransactionData) => {
 
   const range = `Libro!B${nextRowNumber}:I${nextRowNumber + rows.length - 1}`
 
-  await sheets.spreadsheets.values.update({
-    spreadsheetId: process.env.GOOGLE_SHEETS_ID,
-    range,
-    valueInputOption: 'USER_ENTERED',
-    requestBody: { values: rows },
-  })
+  await sheetsRepository.updateSheetValues(range, rows)
 }
 
 const sheetsService = {
