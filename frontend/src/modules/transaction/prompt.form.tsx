@@ -68,7 +68,7 @@ export const PromptForm = ({
       />
 
       <IconButton
-        sx={{ width: 36, height: 36, bgcolor: 'red' }}
+        sx={{ width: 36, height: 36, bgcolor: 'primary.main' }}
         size='small'
         type='submit'
         disabled={isPending || prompt === ''}
