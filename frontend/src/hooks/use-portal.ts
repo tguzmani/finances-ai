@@ -3,7 +3,7 @@ import { MouseEvent, useState } from 'react'
 const usePortal = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
-  const handleOpenPortal = (event: MouseEvent<HTMLElement>) => {
+  const onOpen = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
 
@@ -13,7 +13,7 @@ const usePortal = () => {
 
   const open = Boolean(anchorEl)
 
-  return { open, anchorEl, onClose, handleOpenPortal }
+  return { open, anchorEl, onClose, onOpen }
 }
 
 export default usePortal

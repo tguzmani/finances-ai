@@ -1,4 +1,4 @@
-import { IconButton, Skeleton, Stack } from '@mui/material'
+import { Box, IconButton, Skeleton, Stack, Typography } from '@mui/material'
 import { useGetExchangeRatesOverview } from './exchange-rate.query'
 import Indicator from '../layout/indicator'
 import amount from '../../util/amount'
@@ -25,9 +25,11 @@ const ExchangeRatesOverview = () => {
   const indicatorSlotProps: any = {
     valueTypographyProps: {
       variant: 'body2',
+      align: 'center',
     },
     labelTypographyProps: {
       lineHeight: 1.5,
+      align: 'center',
     },
     stackProps: {
       width: 100,
@@ -35,28 +37,40 @@ const ExchangeRatesOverview = () => {
   }
 
   return (
-    <Stack direction='row' spacing={2} justifyContent='space-between'>
-      <Indicator
-        label='BCV'
-        value={`${amount(exchangeRatesOverview.bcvExchangeRate)} Bs/$`}
-        slotProps={indicatorSlotProps}
-      />
+    <Stack spacing={2}>
+      <Stack
+        direction='row'
+        alignItems='center'
+        justifyContent='space-between'
+        spacing={1}
+      >
+        <Typography variant='body2' color='grey.300'>
+          VESUSD Exchange Rates
+        </Typography>
+        <IconButton size='small' disabled>
+          <RefreshIcon sx={{ fontSize: 18 }} />
+        </IconButton>
+      </Stack>
 
-      <Indicator
-        label='BLK'
-        value={`${amount(exchangeRatesOverview.vesUsdExchangeRate)} Bs/$`}
-        slotProps={indicatorSlotProps}
-      />
+      <Stack direction='row' spacing={2} justifyContent='space-between'>
+        <Indicator
+          label='BCV'
+          value={`${amount(exchangeRatesOverview.bcvExchangeRate)} Bs/$`}
+          slotProps={indicatorSlotProps}
+        />
 
-      <Indicator
-        label='DIF'
-        value={`${exchangeRatesOverview.exchangeVariation.toFixed(2)}%`}
-        slotProps={indicatorSlotProps}
-      />
+        <Indicator
+          label='BLK'
+          value={`${amount(exchangeRatesOverview.vesUsdExchangeRate)} Bs/$`}
+          slotProps={indicatorSlotProps}
+        />
 
-      <IconButton size='small' disabled>
-        <RefreshIcon sx={{ fontSize: 18 }} />
-      </IconButton>
+        <Indicator
+          label='DIF'
+          value={`${exchangeRatesOverview.exchangeVariation.toFixed(2)}%`}
+          slotProps={indicatorSlotProps}
+        />
+      </Stack>
     </Stack>
   )
 }

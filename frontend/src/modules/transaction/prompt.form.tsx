@@ -1,5 +1,7 @@
-import { Button, TextField, Stack } from '@mui/material'
+import { TextField, Stack, IconButton, InputAdornment } from '@mui/material'
 import { FormEvent } from 'react'
+import SendIcon from '@mui/icons-material/Send'
+import CancelIcon from '@mui/icons-material/Cancel'
 
 interface PromptFormProps {
   prompt: string
@@ -25,41 +27,56 @@ export const PromptForm = ({
   }
 
   return (
-    <Stack spacing={2} component='form' onSubmit={handleSendPrompt}>
+    <Stack
+      spacing={1}
+      direction='row'
+      alignItems='center'
+      component='form'
+      onSubmit={handleSendPrompt}
+    >
       <TextField
-        placeholder='Enter your transaction'
-        value={prompt}
         multiline
-        rows={4}
-        slotProps={{
-          input: {
-            sx: { p: 1.5, fontSize: 14, bgcolor: 'background.default' },
-          },
-        }}
-        onChange={e => setPrompt(e.target.value)}
         fullWidth
         required
+        placeholder='Enter your transaction'
+        value={prompt}
+        maxRows={6}
+        onChange={e => setPrompt(e.target.value)}
+        slotProps={{
+          input: {
+            sx: {
+              p: 1.5,
+              fontSize: 14,
+              bgcolor: 'background.default',
+              '& fieldset': {
+                border: 'none',
+              },
+            },
+            endAdornment: (
+              <InputAdornment position='end'>
+                <IconButton
+                  size='small'
+                  disabled={isPending || prompt === ''}
+                  onClick={handleClearPrompt}
+                >
+                  <CancelIcon sx={{ fontSize: 18 }} />
+                </IconButton>
+              </InputAdornment>
+            ),
+          },
+        }}
       />
 
-      <Button
-        variant='contained'
-        type={'submit'}
+      <IconButton
+        sx={{ width: 36, height: 36, bgcolor: 'red' }}
+        size='small'
+        type='submit'
         disabled={isPending || prompt === ''}
         loading={isPending}
         onClick={handleSubmit}
       >
-        {'Submit'}
-      </Button>
-
-      {/* add a clear button */}
-      <Button
-        variant='text'
-        type='button'
-        disabled={isPending || prompt === ''}
-        onClick={handleClearPrompt}
-      >
-        Clear
-      </Button>
+        <SendIcon sx={{ fontSize: 18 }} />
+      </IconButton>
     </Stack>
   )
 }

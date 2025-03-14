@@ -6,6 +6,9 @@ import DashboardPage from './pages/dashboard.page'
 const theme = createTheme({
   palette: {
     mode: 'dark',
+    background: {
+      default: '#282828',
+    },
   },
 
   typography: {
