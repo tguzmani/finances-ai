@@ -1,4 +1,7 @@
-import { AccountOverviewDto } from './../../../../src/controllers/account.controller.model'
+import {
+  AccountOverviewDto,
+  BanescoOverviewDto,
+} from './../../../../src/controllers/account.controller.model'
 import { AxiosRepository } from '../../common/axios.repository'
 
 class AccountRepository extends AxiosRepository {
@@ -9,6 +12,11 @@ class AccountRepository extends AxiosRepository {
   async getAccountsOverview(): Promise<AccountOverviewDto[]> {
     const response = await this.get<any>('/overview')
 
+    return response
+  }
+
+  async getBanescoOverview(): Promise<BanescoOverviewDto> {
+    const response = await this.get<any>('/banesco')
     return response
   }
 }

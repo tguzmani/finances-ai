@@ -41,6 +41,12 @@ export const TransactionView = (props: TransactionViewProps) => {
         </Collapse>
 
         <BottomDrawerInput
+          slotProps={{
+            textField: {
+              placeholder: 'Enter transaction description',
+              multiline: true,
+            },
+          }}
           value={prompt}
           setValue={setPrompt}
           handleSubmit={handleSubmit}

@@ -5,10 +5,11 @@ import {
   Typography,
   TypographyProps,
 } from '@mui/material'
+import { ReactNode } from 'react'
 
 interface IndicatorProps {
   label: string
-  value: string
+  value: string | ReactNode
   loading?: boolean
   slotProps?: {
     labelTypographyProps?: TypographyProps
@@ -31,13 +32,15 @@ const Indicator = (props: IndicatorProps) => {
 
       {props.loading ? (
         <Skeleton variant='text' width={40} animation='wave' />
-      ) : (
+      ) : typeof props.value === 'string' ? (
         <Typography
           variant='caption'
           {...props?.slotProps?.valueTypographyProps}
         >
           {props.value}
         </Typography>
+      ) : (
+        props.value
       )}
     </Stack>
   )

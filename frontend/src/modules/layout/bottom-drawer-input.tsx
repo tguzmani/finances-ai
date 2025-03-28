@@ -14,7 +14,12 @@ interface BottomDrawerInputProps {
   setValue: (value: string) => void
   handleSubmit: (e: FormEvent<HTMLElement>) => void
   isPending: boolean
-  placeholder?: string
+  slotProps?: {
+    textField?: {
+      placeholder?: string
+      multiline?: boolean
+    }
+  }
 }
 
 export const BottomDrawerInput = ({
@@ -22,7 +27,7 @@ export const BottomDrawerInput = ({
   setValue,
   handleSubmit,
   isPending,
-  placeholder,
+  slotProps,
 }: BottomDrawerInputProps) => {
   const handleClearValue = (e: FormEvent<HTMLElement>) => {
     e.preventDefault()
@@ -43,17 +48,17 @@ export const BottomDrawerInput = ({
       onSubmit={handleSubmitValue}
     >
       <TextField
-        multiline
+        multiline={slotProps?.textField?.multiline}
+        placeholder={slotProps?.textField?.placeholder}
+        maxRows={slotProps?.textField?.multiline ? 6 : undefined}
         fullWidth
         required
-        placeholder={placeholder}
         value={value}
-        maxRows={6}
         onChange={e => setValue(e.target.value)}
         slotProps={{
           input: {
             sx: {
-              p: 1.5,
+              p: slotProps?.textField?.multiline ? 1.5 : 0,
               fontSize: 14,
               bgcolor: 'background.default',
               '& fieldset': {

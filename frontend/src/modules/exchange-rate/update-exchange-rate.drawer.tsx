@@ -31,7 +31,11 @@ const UpdateExchangeRateDrawer = (props: BottomDrawerProps) => {
   return (
     <BottomDrawer {...props}>
       <BottomDrawerInput
-        placeholder='Enter exchange rate'
+        slotProps={{
+          textField: {
+            placeholder: 'Enter exchange rate',
+          },
+        }}
         value={exchangeRate}
         setValue={setExchangeRate}
         handleSubmit={handleUpdateExchangeRate}
