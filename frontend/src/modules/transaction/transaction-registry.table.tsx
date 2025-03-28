@@ -21,6 +21,8 @@ import AccountQueryKeys from '../account/account.query-keys'
 interface AccountEntry {
   account: string
   amount: number
+  category?: string
+  subcategory?: string
 }
 
 export interface TransactionData {
@@ -28,9 +30,6 @@ export interface TransactionData {
   description: string
   debit_accounts: AccountEntry[]
   credit_accounts: AccountEntry[]
-  total_amount: number
-  category?: string
-  subcategory?: string
 }
 
 interface TransactionResponseProps {
@@ -64,10 +63,10 @@ export const TransactionRegistryTable = ({
     data.description,
     data.debit_accounts[0]?.account || '',
     '',
-    `$${data.total_amount}`,
+    `$${data.debit_accounts[0]?.amount.toFixed(2)}`,
     '',
-    data.category || '',
-    data.subcategory || '',
+    data.debit_accounts[0]?.category || '',
+    data.debit_accounts[0]?.subcategory || '',
   ])
 
   // Remaining debit accounts (if more than 1)
@@ -77,10 +76,10 @@ export const TransactionRegistryTable = ({
       '',
       debit.account,
       '',
-      `$${debit.amount}`,
+      `$${debit.amount.toFixed(2)}`,
       '',
-      '',
-      '',
+      debit.category || '',
+      debit.subcategory || '',
     ])
   })
 
@@ -92,14 +91,11 @@ export const TransactionRegistryTable = ({
       '',
       credit.account,
       '',
-      `$${credit.amount}`,
+      `$${credit.amount.toFixed(2)}`,
       '',
       '',
     ])
   })
-
-  const date = sheetRows[0][0]
-  const description = sheetRows[0][1]
 
   const handleSave = () => {
     saveTransactionData(data, {
@@ -123,10 +119,10 @@ export const TransactionRegistryTable = ({
       <Stack spacing={2}>
         <Stack spacing={0} direction='row' justifyContent='space-between'>
           <Typography variant='body2' align='center'>
-            {description}
+            {data.description}
           </Typography>
           <Typography variant='body2' align='center' color='grey.400'>
-            {dayjs(date).format('DD MMM, YYYY')}
+            {dayjs(data.date).format('DD MMM, YYYY')}
           </Typography>
         </Stack>
 
@@ -147,8 +143,8 @@ export const TransactionRegistryTable = ({
               >
                 <TableCell>Debit</TableCell>
                 <TableCell>Credit</TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
+                <TableCell align='right'></TableCell>
+                <TableCell align='right'></TableCell>
                 <TableCell align='right'>Category</TableCell>
                 <TableCell align='right'>Subcategory</TableCell>
               </TableRow>
@@ -176,16 +172,14 @@ export const TransactionRegistryTable = ({
         </TableContainer>
       </Stack>
 
-      {data && (
-        <Button
-          variant='contained'
-          disabled={isPendingSave}
-          loading={isPendingSave}
-          onClick={handleSave}
-        >
-          Save
-        </Button>
-      )}
+      <Button
+        variant='contained'
+        disabled={isPendingSave}
+        loading={isPendingSave}
+        onClick={handleSave}
+      >
+        Save
+      </Button>
     </Stack>
   )
 }
