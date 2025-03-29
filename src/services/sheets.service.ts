@@ -69,14 +69,14 @@ export const insertTransactionToSheet = async (data: TransactionData) => {
   // Debit accounts first
   data.debit_accounts.forEach((entry, index) => {
     rows.push([
-      index === 0 ? data.date : null,
+      data.date,
       index === 0 ? data.description : null,
       entry.account,
       null,
       `$${entry.amount}`,
       null,
-      index === 0 ? data.category || null : null,
-      index === 0 ? data.subcategory || null : null,
+      entry.category || null,
+      entry.subcategory || null,
     ])
   })
 

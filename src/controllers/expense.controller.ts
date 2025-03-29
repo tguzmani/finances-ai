@@ -5,6 +5,8 @@ export const getCurrentTotalExpense = async (_req: Request, res: Response) => {
   try {
     const currentTotalExpense = await expenseService.getCurrentTotalExpense()
 
+    console.log('currentTotalExpense', currentTotalExpense)
+
     res.status(200).json({ currentTotalExpense })
   } catch (error: any) {
     console.error('Sheets Test Error:', error)

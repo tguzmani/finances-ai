@@ -1,8 +1,9 @@
 import { Router } from 'express'
-import { getAccountsOverview } from '../controllers/account.controller'
+import * as accountController from '../controllers/account.controller'
 
 const router = Router()
 
-router.get('/overview', getAccountsOverview)
+router.get('/overview', accountController.getAccountsOverview)
+router.get('/banesco', accountController.getBanescoOverview)
 
 export default router

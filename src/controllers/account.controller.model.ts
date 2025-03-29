@@ -11,3 +11,8 @@ export interface AccountOverviewDto {
   balance: number
   currency: Currency
 }
+
+export interface BanescoOverviewDto {
+  usd: AccountOverviewDto
+  ves: AccountOverviewDto
+}

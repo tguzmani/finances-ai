@@ -1,14 +1,18 @@
 import { ChatOpenAI } from '@langchain/openai'
 import sheetsService from './sheets.service'
 
+export interface AccountEntry {
+  account: string
+  amount: number
+  category?: string
+  subcategory?: string
+}
+
 export interface TransactionData {
   date: string
   description: string
-  debit_accounts: { account: string; amount: number }[] // Money destination(s)
-  credit_accounts: { account: string; amount: number }[] // Money source(s)
-  total_amount: number
-  category?: string
-  subcategory?: string
+  debit_accounts: AccountEntry[]
+  credit_accounts: AccountEntry[]
 }
 
 const ACCOUNT_LIST = `
@@ -42,7 +46,6 @@ export const parseTransactionPrompt = async (
   })
 
   const currentDate = new Date()
-
   const bsDollarRate = await sheetsService.getBsDollarRate()
 
   const response = await llm.invoke(`
@@ -54,23 +57,44 @@ export const parseTransactionPrompt = async (
     Output exact JSON:
     {
     "date":"MM/DD/YYYY",
-    "description":"string(≤25 chars,1st word capitalized)",
-    "debit_accounts":[{"account":"string","amount":number}],
-    "credit_accounts":[{"account":"string","amount":number}],
-    "total_amount":number,
-    "category":"string|empty",
-    "subcategory":"string|empty"
+    "description":"string(≤25 chars,from text before first period)",
+    "debit_accounts":[{
+      "account":"string",
+      "amount":number,
+      "category":"string|empty",
+      "subcategory":"string|empty"
+    }],
+    "credit_accounts":[{"account":"string","amount":number}]
     }
     
     Rules:
-    - debit_accounts:Destination(expenses or assets).
-    - credit_accounts:Source(payments or origin).
-    - total_amount:sum debit=credit.
-    - Default currency:USD;if "Bs", convert:(Bs/${bsDollarRate}=USD).
-    - Categories ONLY for "Gastos";if "mixtos", category:"Otros", subcategory:"Otros".
-    - Use ONLY provided Accounts/Categories.
+    - Input format: "[Description]. [Transaction details]"
+    - Description is always the text before the first period.
+    - Input can be in Spanish or Spanglish, but output must be in English format.
+    - Common Spanish inputs:
+      * "gasté/gaste/gasto" = spent (requires category+subcategory)
+      * "pagué/pague/page" = paid
+      * "compré/compre" = bought
+      * "transferí/transferi" = transferred
+      * "recibí/recibi" = received
+      * "bs/bss/bolivares" = convert to USD using rate
+    - debit_accounts: Destination of money (expenses or assets).
+      * If account starts with "Gastos", MUST include category and subcategory.
+      * Other debit accounts (assets) don't need categories.
+    - credit_accounts: Source of money (payments or origin).
+    - Debits total must equal Credits total.
+    - Default currency:USD; if amount in "Bs/bss/bolivares", convert:(Bs/${bsDollarRate}=USD). Use 10 decimal places.
+    - Use ONLY provided Accounts/Categories from lists above.
     - Use full account names for "Gastos", example: "Gastos mercado".
     - Use full account names for "Ingresos", example: "Ingresos OneMeta".
+    
+    Example inputs:
+    - "Mercado semanal. gasté 50$ en mercado con bofa" 
+      -> description: "Mercado semanal"
+      -> debit: {"account":"Gastos mercado","category":"Comida","subcategory":"Mercado"}
+    - "Crypto transfer. transferi 100$ a binance desde bofa" 
+      -> description: "Crypto transfer"
+      -> debit: {"account":"Binance"} (no category needed for assets)
     
     Sentence:"${prompt}"
     `)

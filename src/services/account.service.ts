@@ -9,13 +9,12 @@ import sheetsService from './sheets.service'
 
 async function getAccountsOverview() {
   const accountsRange = await sheetsRepository.getSheetValues(ACCOUNTS_RANGE)
-  const vesUsdExchangeRate = await sheetsService.getBsDollarRate()
 
   if (!accountsRange || accountsRange.length === 0) {
     throw new Error('❌ Failed to get accounts data.')
   }
 
-  let accounts: AccountOverviewDto[] = accountsRange.map(row => ({
+  const accounts: AccountOverviewDto[] = accountsRange.map(row => ({
     id: row[0],
     label: row[0],
     initialBalance: amountToFloat(row[1]),
@@ -25,28 +24,48 @@ async function getAccountsOverview() {
     currency: Currency.USD,
   }))
 
-  const banescoAccount = accounts.find(account => account.id === 'Banesco')
+  return accounts.sort((a, b) => a.label.localeCompare(b.label))
+}
 
-  if (banescoAccount) {
-    const banescoAccountVes = {
-      ...banescoAccount,
-      id: 'Banesco VES',
-      label: 'Banesco VES',
-      initialBalance: banescoAccount?.initialBalance * vesUsdExchangeRate,
-      in: banescoAccount?.in * vesUsdExchangeRate,
-      out: banescoAccount?.out * vesUsdExchangeRate,
-      balance: banescoAccount?.balance * vesUsdExchangeRate,
-      currency: Currency.VES,
-    }
+async function getBanescoOverview() {
+  const accountsRange = await sheetsRepository.getSheetValues(ACCOUNTS_RANGE)
+  const vesUsdExchangeRate = await sheetsService.getBsDollarRate()
 
-    accounts.push(banescoAccountVes)
+  if (!accountsRange || accountsRange.length === 0) {
+    throw new Error('❌ Failed to get Banesco account data.')
   }
 
-  return accounts.sort((a, b) => a.label.localeCompare(b.label))
+  const banescoRow = accountsRange.find(row => row[0] === 'Banesco')
+  if (!banescoRow) {
+    throw new Error('❌ Banesco account not found.')
+  }
+
+  const banescoUsd: AccountOverviewDto = {
+    id: 'Banesco',
+    label: 'Banesco',
+    initialBalance: amountToFloat(banescoRow[1]),
+    in: amountToFloat(banescoRow[4]),
+    out: amountToFloat(banescoRow[5]),
+    balance: amountToFloat(banescoRow[6]),
+    currency: Currency.USD,
+  }
+
+  const banescoVes: AccountOverviewDto = {
+    id: 'Banesco VES',
+    label: 'Banesco VES',
+    initialBalance: banescoUsd.initialBalance * vesUsdExchangeRate,
+    in: banescoUsd.in * vesUsdExchangeRate,
+    out: banescoUsd.out * vesUsdExchangeRate,
+    balance: banescoUsd.balance * vesUsdExchangeRate,
+    currency: Currency.VES,
+  }
+
+  return { usd: banescoUsd, ves: banescoVes }
 }
 
 const accountService = {
   getAccountsOverview,
+  getBanescoOverview,
 }
 
 export default accountService
