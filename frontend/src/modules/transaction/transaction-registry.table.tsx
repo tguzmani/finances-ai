@@ -105,6 +105,7 @@ export const TransactionRegistryTable = ({
           ExpenseQueryKeys.TODAY_EXPENSE,
           ExpenseQueryKeys.EXPENSE_STATUS,
           AccountQueryKeys.ACCOUNTS_OVERVIEW,
+          AccountQueryKeys.BANESCO_OVERVIEW,
         ]) {
           queryClient.invalidateQueries({ queryKey: [key] })
         }

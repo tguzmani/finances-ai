@@ -1,3 +1,4 @@
+import { BANESCO_BALANCE_VES_CELL } from '../common/constants/cells.constants'
 import { ACCOUNTS_RANGE } from '../common/constants/range.constants'
 import sheetsRepository from '../common/sheets.repository'
 import {
@@ -28,37 +29,41 @@ async function getAccountsOverview() {
 }
 
 async function getBanescoOverview() {
-  const accountsRange = await sheetsRepository.getSheetValues(ACCOUNTS_RANGE)
   const vesUsdExchangeRate = await sheetsService.getBsDollarRate()
+  const banescoVesBalance = await sheetsRepository.getSheetValues(
+    BANESCO_BALANCE_VES_CELL
+  )
 
-  if (!accountsRange || accountsRange.length === 0) {
-    throw new Error('❌ Failed to get Banesco account data.')
+  if (!banescoVesBalance) {
+    throw new Error('❌ Failed to get Banesco balance.')
   }
 
-  const banescoRow = accountsRange.find(row => row[0] === 'Banesco')
-  if (!banescoRow) {
-    throw new Error('❌ Banesco account not found.')
-  }
+  const vesBalance = amountToFloat(banescoVesBalance[0][0])
+  const usdBalance = vesBalance / vesUsdExchangeRate
 
   const banescoUsd: AccountOverviewDto = {
     id: 'Banesco',
     label: 'Banesco',
-    initialBalance: amountToFloat(banescoRow[1]),
-    in: amountToFloat(banescoRow[4]),
-    out: amountToFloat(banescoRow[5]),
-    balance: amountToFloat(banescoRow[6]),
+    initialBalance: 0,
+    in: 0,
+    out: 0,
+    balance: usdBalance,
     currency: Currency.USD,
   }
 
   const banescoVes: AccountOverviewDto = {
     id: 'Banesco VES',
     label: 'Banesco VES',
-    initialBalance: banescoUsd.initialBalance * vesUsdExchangeRate,
-    in: banescoUsd.in * vesUsdExchangeRate,
-    out: banescoUsd.out * vesUsdExchangeRate,
-    balance: banescoUsd.balance * vesUsdExchangeRate,
+    initialBalance: 0,
+    in: 0,
+    out: 0,
+    balance: vesBalance,
     currency: Currency.VES,
   }
+
+  console.log('vesUsdExchangeRate', vesUsdExchangeRate)
+  console.log('banescoUsd', banescoUsd)
+  console.log('banescoVes', banescoVes)
 
   return { usd: banescoUsd, ves: banescoVes }
 }
