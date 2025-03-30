@@ -10,6 +10,10 @@ class BudgetRepository extends AxiosRepository {
     const response = await this.get<BudgetsOverviewResponse>('/overview')
     return response
   }
+
+  async autoAdjustBudget(rowId: number): Promise<void> {
+    return this.post('/auto-adjust', { rowId })
+  }
 }
 
 export const budgetRepository = new BudgetRepository()

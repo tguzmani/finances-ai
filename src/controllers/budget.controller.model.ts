@@ -1,4 +1,5 @@
 export interface BudgetSubcategoryDto {
+  rowId: number
   subcategory: string
   cap: number
   spent: number

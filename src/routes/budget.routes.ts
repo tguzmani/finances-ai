@@ -1,8 +1,12 @@
 import { Router } from 'express'
-import budgetController from '../controllers/budget.controller'
+import {
+  autoAdjustBudgetCap,
+  getBudgetsOverview,
+} from '../controllers/budget.controller'
 
 const router = Router()
 
-router.get('/overview', budgetController.getBudgetsOverview)
+router.get('/overview', getBudgetsOverview)
+router.post('/auto-adjust', autoAdjustBudgetCap)
 
 export default router
