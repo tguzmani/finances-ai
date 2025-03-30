@@ -55,7 +55,7 @@ const SubcategoryItem = ({ sub }: { sub: Subcategory }) => {
       <IconButton
         size='small'
         onClick={() => autoAdjust.mutate(sub.rowId)}
-        disabled={autoAdjust.isPending}
+        disabled={autoAdjust.isPending || sub.spent >= sub.cap}
         sx={{ p: 0.5 }}
       >
         <AutoFixHighIcon sx={{ fontSize: 18 }} />

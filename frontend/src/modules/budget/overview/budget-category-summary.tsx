@@ -38,7 +38,7 @@ const BudgetCategorySummary = ({
         value={(totalSpent / totalCap) * 100}
         sx={{
           height: 4,
-          bgcolor: 'grey.200',
+          bgcolor: 'grey.600',
           '& .MuiLinearProgress-bar': {
             bgcolor: 'primary.main',
           },

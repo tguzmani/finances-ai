@@ -22,7 +22,7 @@ export const CircularProgressIndicator = ({
         value={100}
         size={size}
         thickness={thickness}
-        sx={{ color: 'grey.200' }}
+        sx={{ color: 'grey.600' }}
       />
 
       {/* Main progress */}
