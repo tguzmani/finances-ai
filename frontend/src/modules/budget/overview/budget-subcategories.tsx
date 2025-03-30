@@ -4,7 +4,7 @@ import { CircularProgressIndicator } from '../../layout/circular-progress-indica
 import Amount from '../../layout/amount'
 import { useAutoAdjustBudget } from '../budget.command'
 
-interface Subcategory {
+export interface Subcategory {
   rowId: number
   subcategory: string
   spent: number

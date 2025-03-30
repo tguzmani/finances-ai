@@ -1,17 +1,13 @@
 import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import BudgetCategorySummary from './budget-category-summary'
-import BudgetSubcategories from './budget-subcategories'
+import BudgetSubcategories, { Subcategory } from './budget-subcategories'
 
 interface Budget {
   category: string
   totalSpent: number
   totalCap: number
-  subcategories: {
-    subcategory: string
-    spent: number
-    cap: number
-  }[]
+  subcategories: Subcategory[]
 }
 
 const BudgetCategory = ({ budget }: { budget: Budget }) => {
