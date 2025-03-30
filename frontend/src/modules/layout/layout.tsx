@@ -10,7 +10,12 @@ const Layout = ({ children }: LayoutProps) => {
     <>
       <Toaster />
 
-      <Stack sx={{ height: '100vh', maxWidth: '100vw', overflow: 'hidden' }}>
+      <Stack
+        sx={{
+          height: 'calc(100vh - 16px)',
+          maxWidth: '100vw',
+        }}
+      >
         <ApplicationBar />
         <Box flexGrow={1} p={2}>
           {children}

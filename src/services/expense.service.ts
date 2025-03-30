@@ -73,7 +73,7 @@ async function getExpenseStatus() {
 
   const assetsEqualsLiabilitiesPlusEquity = {
     satisfied: expenseStatus[0][1] === 'TRUE',
-    label: 'ALE',
+    label: 'A = L + E',
   }
 
   const journalExpenseEqualsBudgetsExpense = {

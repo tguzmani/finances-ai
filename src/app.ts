@@ -8,6 +8,7 @@ import transactionRoutes from './routes/transaction.routes'
 import expenseRoutes from './routes/expense.routes'
 import accountRoutes from './routes/account.routes'
 import exchangeRateRoutes from './routes/exchange-rate.routes'
+import budgetRoutes from './routes/budget.routes'
 
 dotenv.config()
 
@@ -20,11 +21,19 @@ app.use(
   })
 )
 
-// Routes
-app.use('/api/transactions', transactionRoutes)
-app.use('/api/expenses', expenseRoutes)
-app.use('/api/accounts', accountRoutes)
-app.use('/api/exchange-rates', exchangeRateRoutes)
+// Routes configuration
+const routes = [
+  { path: 'transactions', router: transactionRoutes },
+  { path: 'expenses', router: expenseRoutes },
+  { path: 'accounts', router: accountRoutes },
+  { path: 'exchange-rates', router: exchangeRateRoutes },
+  { path: 'budgets', router: budgetRoutes },
+]
+
+// Register all routes with /api prefix
+routes.forEach(({ path, router }) => {
+  app.use(`/api/${path}`, router)
+})
 
 // Serve frontend static files
 if (process.env.NODE_ENV === 'production') {

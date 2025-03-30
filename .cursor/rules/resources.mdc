@@ -6,7 +6,7 @@ alwaysApply: true
 
 # Resource creation and management
 
-- For every resource or use case created this is required in the backend: a service, a controller and a route. If I ask you for a service, you have to check if everything exists in the backend. Use [account.controller.ts](mdc:src/controllers/account.controller.ts) [account.service.ts](mdc:src/services/account.service.ts) and [account.routes.ts](mdc:src/routes/account.routes.ts) for reference.
+- For every resource or use case created this is required in the backend: a service, a controller and a route. If I ask you for a service, you have to check if everything exists in the backend. Use [account.controller.ts](mdc:src/controllers/account.controller.ts) [account.service.ts](mdc:src/services/account.service.ts) and [account.routes.ts](mdc:src/routes/account.routes.ts) for reference. Also, for the interfaces, store them like [account.controller.model.ts](mdc:src/controllers/account.controller.model.ts).
 
 - For every resource or use case created this is is required in the frontend: a repository, a query/mutation (command). If it is a query, likely a query-key should be created. Check [account.query-keys.ts](mdc:frontend/src/modules/account/account.query-keys.ts) [account.query.ts](mdc:frontend/src/modules/account/account.query.ts) [exchange-rate.command.tsx](mdc:frontend/src/modules/exchange-rate/exchange-rate.command.tsx) [accounts.repository.ts](mdc:frontend/src/modules/account/accounts.repository.ts)
 

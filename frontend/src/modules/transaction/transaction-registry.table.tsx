@@ -17,6 +17,7 @@ import { useSaveTransactionData } from './transaction.command'
 import { useQueryClient } from '@tanstack/react-query'
 import ExpenseQueryKeys from '../expense/expense.query-keys'
 import AccountQueryKeys from '../account/account.query-keys'
+import BudgetQueryKeys from '../budget/budget.query-keys'
 
 interface AccountEntry {
   account: string
@@ -106,6 +107,7 @@ export const TransactionRegistryTable = ({
           ExpenseQueryKeys.EXPENSE_STATUS,
           AccountQueryKeys.ACCOUNTS_OVERVIEW,
           AccountQueryKeys.BANESCO_OVERVIEW,
+          BudgetQueryKeys.BUDGETS_OVERVIEW,
         ]) {
           queryClient.invalidateQueries({ queryKey: [key] })
         }

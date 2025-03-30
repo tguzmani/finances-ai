@@ -1,6 +1,7 @@
-import { Stack, Tab, Tabs } from '@mui/material'
+import { Box, Stack, Tab, Tabs } from '@mui/material'
 import AccountsOverview from '../account/accounts-overview'
 import { useState } from 'react'
+import BudgetOverview from '../budget/overview/budget-overview'
 
 const TABS_MIN_HEIGHT = 36
 
@@ -29,10 +30,13 @@ const DashboardTabs = () => {
         onChange={handleChange}
       >
         <Tab disableRipple label='Accounts' />
-        <Tab disableRipple disabled label='Expenses' />
+        <Tab disableRipple label='Budgets' />
       </Tabs>
 
-      <AccountsOverview />
+      <Box height='480px' sx={{ overflowY: 'scroll' }}>
+        {value === 0 && <AccountsOverview />}
+        {value === 1 && <BudgetOverview />}
+      </Box>
     </Stack>
   )
 }

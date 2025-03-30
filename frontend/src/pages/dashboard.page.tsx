@@ -13,7 +13,7 @@ const FullWidthDivider = styled(Divider)(() => ({
 const DashboardPage = () => {
   return (
     <Layout>
-      <Stack spacing={2} overflow='visible'>
+      <Stack spacing={2}>
         <CurrentTotalExpense />
 
         <FullWidthDivider />
