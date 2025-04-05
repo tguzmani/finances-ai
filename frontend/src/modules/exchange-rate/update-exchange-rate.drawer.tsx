@@ -5,6 +5,7 @@ import { useUpdateExchangeRate } from './exchange-rate.command'
 import toast from 'react-hot-toast'
 import { useQueryClient } from '@tanstack/react-query'
 import ExchangeRateQueryKeys from './exchange-rate.query-keys'
+import AccountQueryKeys from '../account/account.query-keys'
 
 const UpdateExchangeRateDrawer = (props: BottomDrawerProps) => {
   const [exchangeRate, setExchangeRate] = useState<string>('')
@@ -20,6 +21,10 @@ const UpdateExchangeRateDrawer = (props: BottomDrawerProps) => {
 
         queryClient.invalidateQueries({
           queryKey: [ExchangeRateQueryKeys.EXCHANGE_RATES_OVERVIEW],
+        })
+
+        queryClient.invalidateQueries({
+          queryKey: [AccountQueryKeys.BANESCO_OVERVIEW],
         })
       },
       onError: () => {
