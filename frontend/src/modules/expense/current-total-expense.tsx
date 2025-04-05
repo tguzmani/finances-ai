@@ -14,7 +14,7 @@ const CurrentTotalExpense = () => {
   const { data: todayExpense } = useGetTodayExpense()
   const { data: expenseStatus } = useGetExpenseStatus()
 
-  if (!currentTotalExpense || !todayExpense)
+  if (currentTotalExpense === undefined || todayExpense === undefined)
     return (
       <Stack spacing={1}>
         <Skeleton width='25%' animation='wave' variant='text' />
