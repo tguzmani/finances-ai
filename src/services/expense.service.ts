@@ -28,9 +28,9 @@ async function getTodayExpense() {
     throw new Error('❌ Failed to get journal book data.')
   }
 
-  // Get today's and yesterday's dates in format 'DD-MMM'
-  const today = dayjs().format('DD-MMM')
-  const yesterday = dayjs().subtract(1, 'day').format('DD-MMM')
+  // Format dates without leading zeros
+  const today = dayjs().format('D-MMM')
+  const yesterday = dayjs().subtract(1, 'day').format('D-MMM')
 
   let totalExpense = 0
   let yesterdayExpense = 0
@@ -40,12 +40,12 @@ async function getTodayExpense() {
 
     // Ensure the row has a valid category containing "Gastos" and an amount
     if (category?.includes('Gastos') && amount) {
-      const expenseAmount = parseFloat(amount.replace('$', '').trim())
+      const expenseAmount = parseFloat(amount.replace(/[$\s]/g, '').trim())
 
       if (!isNaN(expenseAmount)) {
-        if (date?.includes(today)) {
+        if (date === today) {
           totalExpense += expenseAmount
-        } else if (date?.includes(yesterday)) {
+        } else if (date === yesterday) {
           yesterdayExpense += expenseAmount
         }
       }

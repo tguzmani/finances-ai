@@ -46,10 +46,10 @@ const CurrentTotalExpense = () => {
             <Typography variant='body2'>
               (
               {todayExpense.expenseDifference > 0
-                ? '+'
+                ? '–'
                 : todayExpense.expenseDifference === 0
                 ? ''
-                : '–'}
+                : '+'}
               ${expenseDifferenceAbs})
             </Typography>
           </Hideable>
