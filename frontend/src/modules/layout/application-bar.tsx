@@ -1,4 +1,5 @@
 import { AppBar, IconButton, Toolbar, Typography } from '@mui/material'
+import { RiExternalLinkLine } from 'react-icons/ri'
 
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
@@ -10,6 +11,13 @@ const ApplicationBar = () => {
   const { visibility, toggleVisibility } = useVisibilityStore()
 
   const ToggleVisibilityIcon = visibility ? VisibilityIcon : VisibilityOffIcon
+
+  const openGoogleSheets = () => {
+    const sheetsId = import.meta.env.VITE_GOOGLE_SHEETS_ID
+
+    const url = `https://docs.google.com/spreadsheets/d/${sheetsId}/edit?gid=1400547069#gid=1400547069`
+    window.open(url, '_blank')
+  }
 
   return (
     <AppBar
@@ -29,12 +37,22 @@ const ApplicationBar = () => {
         <IconButton
           disableRipple
           size='small'
-          edge='start'
           color='inherit'
           aria-label='menu'
           onClick={toggleVisibility}
+          sx={{ mr: 1 }}
         >
-          <ToggleVisibilityIcon sx={{ fontSize: 18 }} />
+          <ToggleVisibilityIcon sx={{ fontSize: 16 }} />
+        </IconButton>
+
+        <IconButton
+          disableRipple
+          size='small'
+          color='inherit'
+          aria-label='open sheets'
+          onClick={openGoogleSheets}
+        >
+          <RiExternalLinkLine size={16} />
         </IconButton>
       </Toolbar>
     </AppBar>

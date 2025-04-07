@@ -7,6 +7,8 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  envDir: '../', // This tells Vite to look for .env in the parent directory
+
   plugins: [
     react(),
     svgr(),
@@ -52,12 +54,6 @@ export default defineConfig({
     },
   },
 
-  define: {
-    'import.meta.env.VITE_BACKEND_URL': JSON.stringify(
-      process.env.VITE_BACKEND_URL
-    ),
-  },
-
   resolve: {
     alias: [
       { find: '@', replacement: path.resolve(__dirname, 'src') },
@@ -69,7 +65,10 @@ export default defineConfig({
         find: '@config',
         replacement: path.resolve(__dirname, 'src', 'config'),
       },
-      { find: '@hooks', replacement: path.resolve(__dirname, 'src', 'hooks') },
+      {
+        find: '@hooks',
+        replacement: path.resolve(__dirname, 'src', 'hooks'),
+      },
       {
         find: '@images',
         replacement: path.resolve(__dirname, 'src', 'assets', 'images'),
@@ -90,7 +89,10 @@ export default defineConfig({
         find: '@routes',
         replacement: path.resolve(__dirname, 'src', 'routes'),
       },
-      { find: '@pages', replacement: path.resolve(__dirname, 'src', 'pages') },
+      {
+        find: '@pages',
+        replacement: path.resolve(__dirname, 'src', 'pages'),
+      },
       { find: '@util', replacement: path.resolve(__dirname, 'src', 'util') },
     ],
   },
