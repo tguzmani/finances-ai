@@ -9,6 +9,7 @@ import expenseRoutes from './routes/expense.routes'
 import accountRoutes from './routes/account.routes'
 import exchangeRateRoutes from './routes/exchange-rate.routes'
 import budgetRoutes from './routes/budget.routes'
+import statusRoutes from './routes/status.routes'
 
 dotenv.config()
 
@@ -28,6 +29,7 @@ const routes = [
   { path: 'accounts', router: accountRoutes },
   { path: 'exchange-rates', router: exchangeRateRoutes },
   { path: 'budgets', router: budgetRoutes },
+  { path: 'status', router: statusRoutes },
 ]
 
 // Register all routes with /api prefix

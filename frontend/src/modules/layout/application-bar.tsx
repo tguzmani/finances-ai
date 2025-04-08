@@ -4,19 +4,20 @@ import { RiExternalLinkLine } from 'react-icons/ri'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { useVisibilityStore } from '../../visibility.store'
+import { useGetStatus } from '../status/status.query'
 
 const HEIGHT = 36
 
 const ApplicationBar = () => {
   const { visibility, toggleVisibility } = useVisibilityStore()
+  const { data: status, isPending } = useGetStatus()
 
   const ToggleVisibilityIcon = visibility ? VisibilityIcon : VisibilityOffIcon
 
   const openGoogleSheets = () => {
-    const sheetsId = import.meta.env.VITE_GOOGLE_SHEETS_ID
-
-    const url = `https://docs.google.com/spreadsheets/d/${sheetsId}/edit?gid=1400547069#gid=1400547069`
-    window.open(url, '_blank')
+    if (status?.googleSheetsUrl) {
+      window.open(status.googleSheetsUrl, '_blank')
+    }
   }
 
   return (
@@ -46,6 +47,7 @@ const ApplicationBar = () => {
         </IconButton>
 
         <IconButton
+          disabled={isPending}
           disableRipple
           size='small'
           color='inherit'
