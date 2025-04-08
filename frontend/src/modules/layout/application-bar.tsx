@@ -36,17 +36,6 @@ const ApplicationBar = () => {
         </Typography>
 
         <IconButton
-          disableRipple
-          size='small'
-          color='inherit'
-          aria-label='menu'
-          onClick={toggleVisibility}
-          sx={{ mr: 1 }}
-        >
-          <ToggleVisibilityIcon sx={{ fontSize: 16 }} />
-        </IconButton>
-
-        <IconButton
           disabled={isPending}
           disableRipple
           size='small'
@@ -55,6 +44,17 @@ const ApplicationBar = () => {
           onClick={openGoogleSheets}
         >
           <RiExternalLinkLine size={16} />
+        </IconButton>
+
+        <IconButton
+          disableRipple
+          size='small'
+          color='inherit'
+          aria-label='menu'
+          onClick={toggleVisibility}
+          sx={{ mr: 1 }}
+        >
+          <ToggleVisibilityIcon sx={{ fontSize: 16 }} />
         </IconButton>
       </Toolbar>
     </AppBar>
