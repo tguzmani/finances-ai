@@ -17,7 +17,7 @@ const app = express()
 app.use(express.json())
 app.use(
   cors({
-    origin: ['http://localhost:4300', 'https://192.168.18.166:4300'],
+    origin: ['http://localhost:4300', 'http://192.168.18.166:4300'],
   })
 )
 

@@ -1,10 +1,14 @@
-import { Stack, Skeleton, Typography } from '@mui/material'
+import { Stack, Skeleton, Typography, IconButton } from '@mui/material'
 import { useGetBanescoOverview } from './account.query'
 import Indicator from '../layout/indicator'
 import Amount from '../layout/amount'
+import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh'
+import usePortal from '../../hooks/use-portal'
+import AdjustBanescoBalanceDrawer from './adjust-banesco-balance.drawer'
 
 const BanescoOverview = () => {
   const { data: banescoOverview, isFetching } = useGetBanescoOverview()
+  const portalProps = usePortal()
 
   if (!banescoOverview)
     return (
@@ -32,6 +36,9 @@ const BanescoOverview = () => {
         <Typography variant='body2' color='grey.300'>
           Banesco Overview
         </Typography>
+        <IconButton size='small' onClick={portalProps.onOpen}>
+          <AutoFixHighIcon sx={{ fontSize: 18 }} />
+        </IconButton>
       </Stack>
 
       <Stack
@@ -62,6 +69,11 @@ const BanescoOverview = () => {
           slotProps={indicatorSlotProps}
         />
       </Stack>
+
+      <AdjustBanescoBalanceDrawer
+        title='Adjust Banesco Balance'
+        {...portalProps}
+      />
     </Stack>
   )
 }

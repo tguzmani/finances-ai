@@ -7,6 +7,7 @@ import {
 } from '../controllers/account.controller.model'
 import { amountToFloat } from '../util'
 import sheetsService from './sheets.service'
+import { TransactionData } from './llm.service'
 
 async function getAccountsOverview() {
   const accountsRange = await sheetsRepository.getSheetValues(ACCOUNTS_RANGE)
@@ -68,9 +69,60 @@ async function getBanescoOverview() {
   return { usd: banescoUsd, ves: banescoVes }
 }
 
+async function adjustBanescoBalance(newBalance: number) {
+  const currentBalance = await sheetsRepository.getSheetValues(
+    BANESCO_BALANCE_VES_CELL
+  )
+
+  if (!currentBalance) {
+    throw new Error('❌ Failed to get Banesco balance.')
+  }
+
+  const currentBalanceValue = parseFloat(currentBalance[0][0])
+  const difference = newBalance - currentBalanceValue
+  const exchangeRate = await sheetsService.getBsDollarRate()
+  const differenceInUsd = difference / exchangeRate
+
+  const transaction: TransactionData = {
+    date: new Date().toLocaleDateString('en-US'),
+    description: 'Ajustes balance Banesco',
+    debit_accounts: [],
+    credit_accounts: [
+      { account: 'Banesco', amount: Math.abs(differenceInUsd) },
+    ],
+  }
+
+  if (difference > 0) {
+    // Need to add expense
+    transaction.debit_accounts = [
+      {
+        account: 'Gastos comisiones',
+        amount: differenceInUsd,
+        category: 'Otros',
+        subcategory: 'Comisiones',
+      },
+    ]
+  } else {
+    // Need to add income
+    transaction.debit_accounts = [
+      {
+        account: 'Banesco',
+        amount: Math.abs(differenceInUsd),
+      },
+    ]
+    transaction.credit_accounts = [
+      { account: 'Ingresos otros', amount: Math.abs(differenceInUsd) },
+    ]
+  }
+
+  await sheetsService.insertTransactionToSheet(transaction)
+  return { success: true }
+}
+
 const accountService = {
   getAccountsOverview,
   getBanescoOverview,
+  adjustBanescoBalance,
 }
 
 export default accountService
