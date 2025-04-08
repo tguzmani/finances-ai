@@ -92,12 +92,12 @@ async function adjustBanescoBalance(newBalance: number) {
     ],
   }
 
-  if (difference > 0) {
+  if (newBalance < currentBalanceValue) {
     // Need to add expense
     transaction.debit_accounts = [
       {
         account: 'Gastos comisiones',
-        amount: differenceInUsd,
+        amount: Math.abs(differenceInUsd),
         category: 'Otros',
         subcategory: 'Comisiones',
       },
@@ -107,7 +107,7 @@ async function adjustBanescoBalance(newBalance: number) {
     transaction.debit_accounts = [
       {
         account: 'Banesco',
-        amount: Math.abs(differenceInUsd),
+        amount: differenceInUsd,
       },
     ]
     transaction.credit_accounts = [
