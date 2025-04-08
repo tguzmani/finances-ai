@@ -3,6 +3,7 @@ import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh'
 import { CircularProgressIndicator } from '../../layout/circular-progress-indicator'
 import Amount from '../../layout/amount'
 import { useAutoAdjustBudget } from '../budget.command'
+import toast from 'react-hot-toast'
 
 export interface Subcategory {
   rowId: number
@@ -17,6 +18,17 @@ interface BudgetSubcategoriesProps {
 
 const SubcategoryItem = ({ sub }: { sub: Subcategory }) => {
   const autoAdjust = useAutoAdjustBudget()
+
+  const handleAutoAdjust = () => {
+    autoAdjust.mutate(sub.rowId, {
+      onSuccess: () => {
+        toast.success('Budget adjusted successfully')
+      },
+      onError: () => {
+        toast.error('Failed to adjust budget')
+      },
+    })
+  }
 
   return (
     <Stack direction='row' alignItems='center' spacing={2}>
@@ -54,7 +66,7 @@ const SubcategoryItem = ({ sub }: { sub: Subcategory }) => {
 
       <IconButton
         size='small'
-        onClick={() => autoAdjust.mutate(sub.rowId)}
+        onClick={handleAutoAdjust}
         disabled={autoAdjust.isPending || sub.spent >= sub.cap}
         sx={{ p: 0.5 }}
       >

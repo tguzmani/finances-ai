@@ -1,1 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
+.toaster > div > div {
+  font-size: 0.875rem;
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.toaster [class*='success'] {
+  --toast-icon-color: #4caf50;
+}
+
+.toaster [class*='error'] {
+  --toast-icon-color: #f44336;
+}

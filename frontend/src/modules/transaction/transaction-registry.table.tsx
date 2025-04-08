@@ -18,6 +18,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import ExpenseQueryKeys from '../expense/expense.query-keys'
 import AccountQueryKeys from '../account/account.query-keys'
 import BudgetQueryKeys from '../budget/budget.query-keys'
+import toast from 'react-hot-toast'
 
 interface AccountEntry {
   account: string
@@ -113,6 +114,11 @@ export const TransactionRegistryTable = ({
         }
 
         handleCloseDialog()
+
+        toast.success('Transaction saved successfully')
+      },
+      onError: () => {
+        toast.error('Failed to save transaction')
       },
     })
   }

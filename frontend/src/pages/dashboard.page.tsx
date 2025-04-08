@@ -10,6 +10,7 @@ const FullWidthDivider = styled(Divider)(() => ({
   left: '-16px',
   width: `calc(100vw )`,
 }))
+
 const DashboardPage = () => {
   return (
     <Layout>

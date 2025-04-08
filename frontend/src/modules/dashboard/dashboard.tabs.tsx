@@ -33,7 +33,7 @@ const DashboardTabs = () => {
         <Tab disableRipple label='Budgets' />
       </Tabs>
 
-      <Box height='480px' sx={{ overflowY: 'scroll' }}>
+      <Box height='408px' sx={{ overflowY: 'scroll' }}>
         {value === 0 && <AccountsOverview />}
         {value === 1 && <BudgetOverview />}
       </Box>

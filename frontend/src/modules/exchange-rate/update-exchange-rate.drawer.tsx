@@ -16,8 +16,10 @@ const UpdateExchangeRateDrawer = (props: BottomDrawerProps) => {
 
   const handleUpdateExchangeRate = (e: FormEvent<HTMLElement>) => {
     updateExchangeRate(exchangeRate, {
-      onSuccess: () => {
+      onSuccess: data => {
         props.onClose(e)
+
+        console.log(data)
 
         queryClient.invalidateQueries({
           queryKey: [ExchangeRateQueryKeys.EXCHANGE_RATES_OVERVIEW],
@@ -26,6 +28,8 @@ const UpdateExchangeRateDrawer = (props: BottomDrawerProps) => {
         queryClient.invalidateQueries({
           queryKey: [AccountQueryKeys.BANESCO_OVERVIEW],
         })
+
+        toast.success('Exchange rate updated successfully')
       },
       onError: () => {
         toast.error('Failed to update exchange rate')

@@ -1,6 +1,7 @@
 import { Box, Stack } from '@mui/material'
 import ApplicationBar from './application-bar'
 import { Toaster } from 'react-hot-toast'
+
 interface LayoutProps {
   children: React.ReactNode
 }
@@ -8,11 +9,10 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
   return (
     <>
-      <Toaster />
+      <Toaster containerClassName='toaster' />
 
       <Stack
         sx={{
-          height: 'calc(100vh - 16px)',
           maxWidth: '100vw',
         }}
       >

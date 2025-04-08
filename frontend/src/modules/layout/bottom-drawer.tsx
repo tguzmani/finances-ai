@@ -18,7 +18,10 @@ const BottomDrawer = ({ title, children, ...props }: BottomDrawerProps) => {
       keepMounted
       slotProps={{
         paper: {
-          sx: { borderTopLeftRadius: 12, borderTopRightRadius: 12 },
+          sx: {
+            borderTopLeftRadius: 12,
+            borderTopRightRadius: 12,
+          },
         },
       }}
       {...props}
