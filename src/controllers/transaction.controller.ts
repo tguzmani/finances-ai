@@ -8,8 +8,8 @@ export const getTransactionData = async (req: Request, res: Response) => {
   try {
     const transactionData = await llmService.parseTransactionPrompt(prompt)
 
-    res.status(201).json({
-      message: '✅ Transaction created successfully!',
+    res.status(200).json({
+      message: 'Transaction data fetched successfully!',
       data: transactionData,
     })
   } catch (error: any) {

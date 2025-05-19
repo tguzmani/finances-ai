@@ -7,7 +7,7 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  envDir: '../', // This tells Vite to look for .env in the parent directory
+  envDir: '../', // For local development
 
   plugins: [
     react(),
