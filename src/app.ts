@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import path from 'path'
 import './common/dayjs.config'
+import { isAuth } from './middleware/is-auth'
 
 import transactionRoutes from './routes/transaction.routes'
 import expenseRoutes from './routes/expense.routes'
@@ -10,6 +11,7 @@ import accountRoutes from './routes/account.routes'
 import exchangeRateRoutes from './routes/exchange-rate.routes'
 import budgetRoutes from './routes/budget.routes'
 import statusRoutes from './routes/status.routes'
+import authRoutes from './routes/auth.routes'
 
 dotenv.config()
 
@@ -22,6 +24,12 @@ app.use(
   })
 )
 
+app.use('/api', (req, res, next) => {
+  if (req.path.startsWith('/auth')) return next()
+
+  isAuth(req, res, next)
+})
+
 // Routes configuration
 const routes = [
   { path: 'transactions', router: transactionRoutes },
@@ -30,6 +38,7 @@ const routes = [
   { path: 'exchange-rates', router: exchangeRateRoutes },
   { path: 'budgets', router: budgetRoutes },
   { path: 'status', router: statusRoutes },
+  { path: 'auth', router: authRoutes },
 ]
 
 // Register all routes with /api prefix
